@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Bar, BarChart, YAxis } from "recharts";
-import "./App.css";
 import { socket2 as socket } from "./socket";
 
 export default function Quux() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
 
-  const [quuxData, setQuuxData] = useState<number[]>([]);
+  const [data, setData] = useState<number[]>([]);
 
   useEffect(() => {
     function onConnect2() {
@@ -18,7 +17,7 @@ export default function Quux() {
     }
 
     function handleQuux(value: number) {
-      setQuuxData((prev) => {
+      setData((prev) => {
         const newQuux =
           prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
 
@@ -38,16 +37,14 @@ export default function Quux() {
   }, []);
 
   return (
-    <section>
-      <p>{`NodeJS Server 2 ${socketIsConnected ? "✅" : "❎"}`}</p>
+    <section className="flex flex-col items-center py-10">
+      <p className="text-xl py-5">{`NodeJS Server 2 ${
+        socketIsConnected ? "✅" : "❎"
+      }`}</p>
       <section
         style={{ display: "flex", width: "100%", justifyContent: "center" }}
       >
-        <BarChart
-          width={300}
-          height={100}
-          data={quuxData.map((i) => ({ v: i }))}
-        >
+        <BarChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
           <YAxis type="number" domain={[0, 100]} hide />
           <Bar dataKey="v" fill="#ff0044" />
         </BarChart>
