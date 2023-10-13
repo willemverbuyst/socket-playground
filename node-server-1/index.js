@@ -15,7 +15,7 @@ function generateFakeValue() {
 }
 
 io.on("connect", (socket) => {
-  setInterval(() => io.emit("fooBar", generateFakeValue()), 3000);
+  setInterval(() => io.emit("fooBar", generateFakeValue()), 2000);
 });
 
 server.listen(8080, () => {

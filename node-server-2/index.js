@@ -15,7 +15,7 @@ function generateFakeValue() {
 }
 
 io.on("connect", (socket) => {
-  setInterval(() => io.emit("quux", generateFakeValue()), 5000);
+  setInterval(() => io.emit("quux", generateFakeValue()), 1000);
 });
 
 server.listen(8081, () => {

@@ -7,3 +7,7 @@ export const socket1 = io(URL1);
 const URL2 = "http://localhost:8081";
 
 export const socket2 = io(URL2);
+
+const URL3 = "http://localhost:8082";
+
+export const socket3 = io(URL3);
