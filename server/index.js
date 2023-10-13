@@ -17,7 +17,7 @@ function generateFakeValue() {
 io.on("connect", (socket) => {
   console.log("a user has connected");
 
-  setInterval(() => io.emit("roger", generateFakeValue()), 1000);
+  setInterval(() => io.emit("fooBar", generateFakeValue()), 3000);
 
   socket.on("message", (msg) => {
     console.log(msg);
