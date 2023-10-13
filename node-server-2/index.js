@@ -7,7 +7,7 @@ const server = createServer(app);
 const io = new Server(server, { cors: { origin: "http://localhost:5173" } });
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello world</h1>");
+  res.send("<h1>Node Server 2</h1>");
 });
 
 function generateFakeValue() {
@@ -15,16 +15,9 @@ function generateFakeValue() {
 }
 
 io.on("connect", (socket) => {
-  console.log("a user has connected");
-
-  setInterval(() => io.emit("fooBar", generateFakeValue()), 3000);
-
-  socket.on("message", (msg) => {
-    console.log(msg);
-    io.emit("message", msg);
-  });
+  setInterval(() => io.emit("quux", generateFakeValue()), 5000);
 });
 
-server.listen(8080, () => {
-  console.log("server running at http://localhost:8080");
+server.listen(8081, () => {
+  console.log("node server 2 running at http://localhost:8081");
 });

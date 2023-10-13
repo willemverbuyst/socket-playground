@@ -1,5 +1,9 @@
 import { io } from "socket.io-client";
 
-const URL = "http://localhost:8080";
+const URL1 = "http://localhost:8080";
 
-export const socket = io(URL);
+export const socket1 = io(URL1);
+
+const URL2 = "http://localhost:8081";
+
+export const socket2 = io(URL2);
