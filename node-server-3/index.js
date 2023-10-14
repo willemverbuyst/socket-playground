@@ -24,8 +24,24 @@ function generateFakeIpsumValue() {
 
 io.on("connect", (socket) => {
   console.log(`Client ${socket.id} connected`);
-  setInterval(() => io.emit("lorem", generateFakeLoremValue()), 2000);
-  setInterval(() => io.emit("ipsum", generateFakeIpsumValue()), 10000);
+  const int1 = setInterval(
+    () => io.emit("lorem", generateFakeLoremValue()),
+    2000
+  );
+  const int2 = setInterval(
+    () => io.emit("ipsum", generateFakeIpsumValue()),
+    10000
+  );
+
+  socket.on("pre-disconnect", (id) => {
+    console.log(`Client ${id} disconnecting`);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`Client disconnected`);
+    clearInterval(int1);
+    clearInterval(int2);
+  });
 });
 
 server.listen(8083, () => {

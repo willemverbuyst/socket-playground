@@ -11,11 +11,22 @@ app.get("/", (req, res) => {
 });
 
 function generateFakeValue() {
-  return Math.floor(Math.random() * (80 - 20 + 1)) + 20;
+  const value = Math.floor(Math.random() * (80 - 20 + 1)) + 20;
+  return value;
 }
 
 io.on("connect", (socket) => {
-  setInterval(() => io.emit("quux", generateFakeValue()), 1000);
+  console.log(`Client ${socket.id} connected`);
+  const int = setInterval(() => io.emit("quux", generateFakeValue()), 1000);
+
+  socket.on("pre-disconnect", (id) => {
+    console.log(`Client ${id} disconnecting`);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`Client disconnected`);
+    clearInterval(int);
+  });
 });
 
 server.listen(8081, () => {

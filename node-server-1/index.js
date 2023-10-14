@@ -12,7 +12,6 @@ app.get("/", (req, res) => {
 
 function generateFakeValue() {
   const value = Math.round(Math.random() * 100, 2);
-
   return value;
 }
 
