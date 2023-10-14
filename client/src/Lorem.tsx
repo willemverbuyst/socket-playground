@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Wrapper from "./components/Wrapper";
 import { socket4 as socket } from "./socket";
 import { truncateString } from "./utils";
 
@@ -57,7 +58,7 @@ export default function Lorem({ notify }: LoremProps) {
   }, []);
 
   return (
-    <section className="flex flex-col items-center pb-10 border border-slate-300 w-96">
+    <Wrapper>
       <section className="flex w-96 justify-between p-4 py-5">
         <p className="text-xl">{`NodeJS Server 3 ${
           socketIsConnected ? "✅" : "❎"
@@ -81,6 +82,6 @@ export default function Lorem({ notify }: LoremProps) {
       <section className="flex flex-col items-center">
         {data.length > 0 && <p>{truncateString(data.join(" "), 40)}</p>}
       </section>
-    </section>
+    </Wrapper>
   );
 }

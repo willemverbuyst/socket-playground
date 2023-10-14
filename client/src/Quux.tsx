@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Area, AreaChart, YAxis } from "recharts";
+import Wrapper from "./components/Wrapper";
 import { socket2 as socket } from "./socket";
 
 export default function Quux() {
@@ -47,7 +48,7 @@ export default function Quux() {
   }, []);
 
   return (
-    <section className="flex flex-col items-center pb-10 border border-slate-300 w-96">
+    <Wrapper>
       <section className="flex w-96 justify-between p-4 py-5">
         <p className="text-xl">{`NodeJS Server 2 ${
           socketIsConnected ? "✅" : "❎"
@@ -80,6 +81,6 @@ export default function Quux() {
           />
         </AreaChart>
       </section>
-    </section>
+    </Wrapper>
   );
 }

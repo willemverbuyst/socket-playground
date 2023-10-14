@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Scatter, ScatterChart, XAxis, YAxis, ZAxis } from "recharts";
+import Wrapper from "./components/Wrapper";
 import { socket3 as socket } from "./socket";
 
 export default function Grault() {
@@ -51,7 +52,7 @@ export default function Grault() {
   const domain = parseDomain();
 
   return (
-    <section className="flex flex-col items-center pb-10 border border-slate-300 w-96">
+    <Wrapper>
       <section className="flex w-96 justify-between p-4 py-5">
         <p className="text-xl">{`Python Server ${
           socketIsConnected ? "✅" : "❎"
@@ -97,6 +98,6 @@ export default function Grault() {
           />
         </ScatterChart>
       </section>
-    </section>
+    </Wrapper>
   );
 }

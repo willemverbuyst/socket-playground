@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Bar, BarChart, YAxis } from "recharts";
+import Wrapper from "./components/Wrapper";
 import { socket1 as socket } from "./socket";
 
 type FooBarProps = {
@@ -55,7 +56,7 @@ export default function FooBar({ notify }: FooBarProps) {
   }, [notify]);
 
   return (
-    <section className="flex flex-col items-center pb-10 border border-slate-300 w-96">
+    <Wrapper>
       <section className="flex w-96 justify-between p-4 py-5">
         <p className="text-xl">{`NodeJS Server 1 ${
           socketIsConnected ? "✅" : "❎"
@@ -82,6 +83,6 @@ export default function FooBar({ notify }: FooBarProps) {
           <Bar dataKey="v" fill="#00ff44" isAnimationActive={false} />
         </BarChart>
       </section>
-    </section>
+    </Wrapper>
   );
 }
