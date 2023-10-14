@@ -11,17 +11,23 @@ export default function FooBar({ notify }: FooBarProps) {
   const [data, setData] = useState<number[]>([]);
 
   function connect() {
-    setSocketIsConnected(true);
     socket.connect();
   }
 
   function disconnect() {
-    setSocketIsConnected(false);
     socket.emit("pre-disconnect", socket.id);
     socket.disconnect();
   }
 
   useEffect(() => {
+    function connect() {
+      setSocketIsConnected(true);
+    }
+
+    function disConnect() {
+      setSocketIsConnected(false);
+    }
+
     function handleFooBar(value: number) {
       setData((prev) => {
         const newFooBar =
@@ -35,9 +41,15 @@ export default function FooBar({ notify }: FooBarProps) {
       }
     }
 
+    socket.connect();
+
+    socket.on("connect", connect);
+    socket.on("disconnect", disConnect);
     socket.on("fooBar", handleFooBar);
 
     return () => {
+      socket.off("connect", connect);
+      socket.off("disonnect", disconnect);
       socket.off("fooBar", handleFooBar);
     };
   }, [notify]);

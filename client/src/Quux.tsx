@@ -7,17 +7,23 @@ export default function Quux() {
   const [data, setData] = useState<number[]>([]);
 
   function connect() {
-    setSocketIsConnected(true);
     socket.connect();
   }
 
   function disconnect() {
-    setSocketIsConnected(false);
     socket.emit("pre-disconnect", socket.id);
     socket.disconnect();
   }
 
   useEffect(() => {
+    function connect() {
+      setSocketIsConnected(true);
+    }
+
+    function disConnect() {
+      setSocketIsConnected(false);
+    }
+
     function handleQuux(value: number) {
       setData((prev) => {
         const newQuux =
@@ -27,9 +33,15 @@ export default function Quux() {
       });
     }
 
+    socket.connect();
+
+    socket.on("connect", connect);
+    socket.on("disconnect", disConnect);
     socket.on("quux", handleQuux);
 
     return () => {
+      socket.off("connect", connect);
+      socket.off("disonnect", disconnect);
       socket.off("quux", handleQuux);
     };
   }, []);
