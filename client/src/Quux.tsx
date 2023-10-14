@@ -8,11 +8,11 @@ export default function Quux() {
   const [data, setData] = useState<number[]>([]);
 
   useEffect(() => {
-    function onConnect2() {
+    function onConnect() {
       setSocketIsConnected(true);
     }
 
-    function onDisconnect2() {
+    function onDisconnect() {
       setSocketIsConnected(false);
     }
 
@@ -25,13 +25,13 @@ export default function Quux() {
       });
     }
 
-    socket.on("connect", onConnect2);
-    socket.on("disconnect", onDisconnect2);
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
     socket.on("quux", handleQuux);
 
     return () => {
-      socket.off("connect", onConnect2);
-      socket.off("disconnect", onDisconnect2);
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
       socket.off("quux", handleQuux);
     };
   }, []);
@@ -41,9 +41,7 @@ export default function Quux() {
       <p className="text-xl py-5">{`NodeJS Server 2 ${
         socketIsConnected ? "✅" : "❎"
       }`}</p>
-      <section
-        style={{ display: "flex", width: "100%", justifyContent: "center" }}
-      >
+      <section className="flex flex-col">
         <AreaChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
           <YAxis type="number" domain={[0, 100]} hide />
           <Area

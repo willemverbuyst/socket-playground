@@ -8,11 +8,11 @@ export default function FooBar() {
   const [data, setData] = useState<number[]>([]);
 
   useEffect(() => {
-    function onConnect1() {
+    function onConnect() {
       setSocketIsConnected(true);
     }
 
-    function onDisconnect1() {
+    function onDisconnect() {
       setSocketIsConnected(false);
     }
 
@@ -25,13 +25,13 @@ export default function FooBar() {
       });
     }
 
-    socket.on("connect", onConnect1);
-    socket.on("disconnect", onDisconnect1);
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
     socket.on("fooBar", handleFooBar);
 
     return () => {
-      socket.off("connect", onConnect1);
-      socket.off("disconnect", onDisconnect1);
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
       socket.off("fooBar", handleFooBar);
     };
   }, []);
@@ -41,9 +41,7 @@ export default function FooBar() {
       <p className="text-xl py-5">{`NodeJS Server 1 ${
         socketIsConnected ? "✅" : "❎"
       }`}</p>
-      <section
-        style={{ display: "flex", width: "100%", justifyContent: "center" }}
-      >
+      <section className="flex flex-col">
         <BarChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
           <YAxis type="number" domain={[0, 100]} hide />
           <Bar dataKey="v" fill="#00ff44" isAnimationActive={false} />
