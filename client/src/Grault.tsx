@@ -6,16 +6,19 @@ export default function Grault() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
   const [data, setData] = useState<number[]>([]);
 
+  function connect() {
+    setSocketIsConnected(true);
+    socket.connect();
+  }
+
+  function disconnect() {
+    setSocketIsConnected(false);
+    socket.emit("pre-disconnect", socket.id);
+    socket.disconnect();
+  }
+
   useEffect(() => {
-    function onConnect() {
-      setSocketIsConnected(true);
-    }
-
-    function onDisconnect() {
-      setSocketIsConnected(false);
-    }
-
-    function handleFooBar(value: number) {
+    function handleGrault(value: number) {
       setData((prev) => {
         const newFooBar =
           prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
@@ -24,14 +27,10 @@ export default function Grault() {
       });
     }
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
-    socket.on("grault", handleFooBar);
+    socket.on("grault", handleGrault);
 
     return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-      socket.off("grault", handleFooBar);
+      socket.off("grault", handleGrault);
     };
   }, []);
 
@@ -40,10 +39,27 @@ export default function Grault() {
   const domain = parseDomain();
 
   return (
-    <section className="flex flex-col items-center py-10 ">
-      <p className="text-xl py-5">{`Python Server ${
-        socketIsConnected ? "✅" : "❎"
-      }`}</p>
+    <section className="flex flex-col items-center pb-10 ">
+      <section className="flex w-96 justify-between py-5">
+        <p className="text-xl">{`Python Server ${
+          socketIsConnected ? "✅" : "❎"
+        }`}</p>
+        {socketIsConnected ? (
+          <button
+            className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
+            onClick={disconnect}
+          >
+            Disconnect
+          </button>
+        ) : (
+          <button
+            className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
+            onClick={connect}
+          >
+            Connect
+          </button>
+        )}
+      </section>
       <section className="flex flex-col">
         <ScatterChart
           width={300}

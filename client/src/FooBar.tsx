@@ -44,7 +44,7 @@ export default function FooBar({ notify }: FooBarProps) {
 
   return (
     <section className="flex flex-col items-center pb-10">
-      <section className="flex gap-8 py-5">
+      <section className="flex w-96 justify-between py-5">
         <p className="text-xl">{`NodeJS Server 1 ${
           socketIsConnected ? "✅" : "❎"
         }`}</p>
