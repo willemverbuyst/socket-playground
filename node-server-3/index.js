@@ -1,0 +1,26 @@
+const express = require("express");
+const { createServer } = require("node:http");
+const { Server } = require("socket.io");
+const LoremIpsum = require("lorem-ipsum").LoremIpsum;
+
+const app = express();
+const server = createServer(app);
+const io = new Server(server, { cors: { origin: "http://localhost:5173" } });
+const lorem = new LoremIpsum();
+
+app.get("/", (req, res) => {
+  res.send("<h1>Node Server 3</h1>");
+});
+
+function generateFakeValue() {
+  const value = lorem.generateWords(1);
+  return value;
+}
+
+io.on("connect", (socket) => {
+  setInterval(() => io.emit("lorem", generateFakeValue()), 2000);
+});
+
+server.listen(8083, () => {
+  console.log("node server 1 running at http://localhost:8083");
+});

@@ -1,5 +1,6 @@
 import FooBar from "./FooBar";
 import Grault from "./Grault";
+import Lorem from "./Lorem";
 import Quux from "./Quux";
 
 export default function App() {
@@ -9,6 +10,7 @@ export default function App() {
       <FooBar />
       <Quux />
       <Grault />
+      <Lorem />
     </main>
   );
 }

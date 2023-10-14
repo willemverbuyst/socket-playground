@@ -4,7 +4,6 @@ import { socket1 as socket } from "./socket";
 
 export default function FooBar() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
-
   const [data, setData] = useState<number[]>([]);
 
   useEffect(() => {

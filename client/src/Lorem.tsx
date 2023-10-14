@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Area, AreaChart, YAxis } from "recharts";
-import { socket2 as socket } from "./socket";
+import { socket4 as socket } from "./socket";
+import { truncateString } from "./utils";
 
-export default function Quux() {
+export default function Lorem() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
-  const [data, setData] = useState<number[]>([]);
+  const [data, setData] = useState<string[]>([]);
 
   useEffect(() => {
     function onConnect() {
@@ -15,42 +15,34 @@ export default function Quux() {
       setSocketIsConnected(false);
     }
 
-    function handleQuux(value: number) {
+    function handleFooBar(value: string) {
       setData((prev) => {
-        const newQuux =
+        const newLorem =
           prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
 
-        return newQuux;
+        return newLorem;
       });
     }
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    socket.on("quux", handleQuux);
+    socket.on("lorem", handleFooBar);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
-      socket.off("quux", handleQuux);
+      socket.off("lorem", handleFooBar);
     };
   }, []);
 
   return (
     <section className="flex flex-col items-center py-10">
-      <p className="text-xl py-5">{`NodeJS Server 2 ${
+      <p className="text-xl py-5">{`NodeJS Server 3 ${
         socketIsConnected ? "✅" : "❎"
       }`}</p>
-      <section className="flex flex-col">
-        <AreaChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
-          <YAxis type="number" domain={[0, 100]} hide />
-          <Area
-            type="monotone"
-            dataKey="v"
-            fill="#ff0044"
-            isAnimationActive={false}
-            dot={false}
-          />
-        </AreaChart>
+
+      <section className="flex flex-col items-center">
+        {data.length > 0 && <p>{truncateString(data.join(" "), 40)}</p>}
       </section>
     </section>
   );
