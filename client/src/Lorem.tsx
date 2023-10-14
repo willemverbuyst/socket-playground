@@ -57,27 +57,27 @@ export default function Lorem({ notify }: LoremProps) {
   }, []);
 
   return (
-    <section className="flex flex-col items-center pb-10 ">
-      <section className="flex py-5">
+    <section className="flex flex-col items-center pb-10 border border-slate-300 w-96">
+      <section className="flex w-96 justify-between p-4 py-5">
         <p className="text-xl">{`NodeJS Server 3 ${
           socketIsConnected ? "✅" : "❎"
         }`}</p>
+        {socketIsConnected ? (
+          <button
+            className="border border-slate-300 text-sm text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
+            onClick={disconnect}
+          >
+            Disconnect
+          </button>
+        ) : (
+          <button
+            className="border border-slate-300 text-sm text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
+            onClick={connect}
+          >
+            Connect
+          </button>
+        )}
       </section>
-      {socketIsConnected ? (
-        <button
-          className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
-          onClick={disconnect}
-        >
-          Disconnect
-        </button>
-      ) : (
-        <button
-          className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
-          onClick={connect}
-        >
-          Connect
-        </button>
-      )}
       <section className="flex flex-col items-center">
         {data.length > 0 && <p>{truncateString(data.join(" "), 40)}</p>}
       </section>

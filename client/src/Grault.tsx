@@ -51,21 +51,21 @@ export default function Grault() {
   const domain = parseDomain();
 
   return (
-    <section className="flex flex-col items-center pb-10 ">
-      <section className="flex w-96 justify-between py-5">
+    <section className="flex flex-col items-center pb-10 border border-slate-300 w-96">
+      <section className="flex w-96 justify-between p-4 py-5">
         <p className="text-xl">{`Python Server ${
           socketIsConnected ? "✅" : "❎"
         }`}</p>
         {socketIsConnected ? (
           <button
-            className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
+            className="border border-slate-300 text-sm text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
             onClick={disconnect}
           >
             Disconnect
           </button>
         ) : (
           <button
-            className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
+            className="border border-slate-300 text-sm text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
             onClick={connect}
           >
             Connect

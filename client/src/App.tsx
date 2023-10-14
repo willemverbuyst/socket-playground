@@ -11,12 +11,16 @@ export default function App() {
   }
 
   return (
-    <main className="bg-slate-800 text-slate-100 p-4 h-screen flex flex-col align-center">
+    <main className="bg-slate-800 text-slate-100 p-4 h-screen flex flex-col gap-5">
       <h1 className="text-5xl text-center py-5">SocketIO</h1>
-      <FooBar notify={notify} />
-      <Grault />
-      <Quux />
-      <Lorem notify={notify} />
+      <section className="flex justify-center gap-5">
+        <FooBar notify={notify} />
+        <Grault />
+      </section>
+      <section className="flex justify-center gap-5">
+        <Quux />
+        <Lorem notify={notify} />
+      </section>
       <ToastContainer position="top-right" autoClose={2000} />
     </main>
   );
