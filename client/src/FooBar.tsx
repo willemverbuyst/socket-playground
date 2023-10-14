@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { Bar, BarChart, YAxis } from "recharts";
 import { socket1 as socket } from "./socket";
 
-export default function FooBar() {
+type FooBarProps = {
+  notify: (value: string) => void;
+};
+
+export default function FooBar({ notify }: FooBarProps) {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
   const [data, setData] = useState<number[]>([]);
 
@@ -22,6 +26,10 @@ export default function FooBar() {
 
         return newFooBar;
       });
+
+      if (value > 90) {
+        notify(`[NodeJS Server 1]: ${value}, value exceeds 90`);
+      }
     }
 
     socket.on("connect", onConnect);
