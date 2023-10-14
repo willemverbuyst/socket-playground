@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 });
 
 function generateFakeValue() {
-  return Math.round(Math.random() * 100, 2);
+  return Math.floor(Math.random() * (80 - 20 + 1)) + 20;
 }
 
 io.on("connect", (socket) => {

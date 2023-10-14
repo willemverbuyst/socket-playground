@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bar, BarChart, YAxis } from "recharts";
+import { Area, AreaChart, YAxis } from "recharts";
 import { socket2 as socket } from "./socket";
 
 export default function Quux() {
@@ -44,10 +44,16 @@ export default function Quux() {
       <section
         style={{ display: "flex", width: "100%", justifyContent: "center" }}
       >
-        <BarChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
+        <AreaChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
           <YAxis type="number" domain={[0, 100]} hide />
-          <Bar dataKey="v" fill="#ff0044" />
-        </BarChart>
+          <Area
+            type="monotone"
+            dataKey="v"
+            fill="#ff0044"
+            isAnimationActive={false}
+            dot={false}
+          />
+        </AreaChart>
       </section>
     </section>
   );

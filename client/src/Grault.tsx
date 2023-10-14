@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bar, BarChart, YAxis } from "recharts";
+import { Scatter, ScatterChart, XAxis, YAxis, ZAxis } from "recharts";
 import { socket3 as socket } from "./socket";
 
 export default function Grault() {
@@ -36,18 +36,39 @@ export default function Grault() {
     };
   }, []);
 
+  const parseDomain = () => [0, Math.max.apply(null, data)];
+
+  const domain = parseDomain();
+
   return (
-    <section className="flex flex-col items-center py-10">
+    <section className="flex flex-col items-center py-10 ">
       <p className="text-xl py-5">{`Python Server ${
         socketIsConnected ? "✅" : "❎"
       }`}</p>
-      <section
-        style={{ display: "flex", width: "100%", justifyContent: "center" }}
-      >
-        <BarChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
-          <YAxis type="number" domain={[0, 100]} hide />
-          <Bar dataKey="v" fill="#00ffff" />
-        </BarChart>
+      <section className="flex flex-col">
+        <ScatterChart
+          width={300}
+          height={50}
+          margin={{ top: 10, right: 0, bottom: -10, left: 0 }}
+        >
+          <ZAxis type="number" dataKey="x" domain={domain} range={[0, 200]} />
+          <XAxis dataKey="x" hide={true} />
+          <YAxis dataKey="y" hide={true} />
+          <Scatter data={data.map((i) => ({ x: i, y: 1 }))} fill="#00ffff" />
+        </ScatterChart>
+        <ScatterChart
+          width={300}
+          height={50}
+          margin={{ top: 10, right: 0, bottom: 0, left: 0 }}
+        >
+          <ZAxis type="number" dataKey="x" domain={domain} range={[0, 200]} />
+          <XAxis dataKey="x" hide={true} />
+          <YAxis dataKey="y" hide={true} />
+          <Scatter
+            data={data.reverse().map((i) => ({ x: i, y: 1 }))}
+            fill="#ff007f"
+          />
+        </ScatterChart>
       </section>
     </section>
   );

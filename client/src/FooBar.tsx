@@ -46,7 +46,7 @@ export default function FooBar() {
       >
         <BarChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
           <YAxis type="number" domain={[0, 100]} hide />
-          <Bar dataKey="v" fill="#00ff44" />
+          <Bar dataKey="v" fill="#00ff44" isAnimationActive={false} />
         </BarChart>
       </section>
     </section>
