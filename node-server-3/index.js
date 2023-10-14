@@ -12,13 +12,19 @@ app.get("/", (req, res) => {
   res.send("<h1>Node Server 3</h1>");
 });
 
-function generateFakeValue() {
+function generateFakeLoremValue() {
   const value = lorem.generateWords(1);
   return value;
 }
 
+function generateFakeIpsumValue() {
+  const value = lorem.generateWords(4);
+  return value;
+}
+
 io.on("connect", (socket) => {
-  setInterval(() => io.emit("lorem", generateFakeValue()), 2000);
+  setInterval(() => io.emit("lorem", generateFakeLoremValue()), 2000);
+  setInterval(() => io.emit("ipsum", generateFakeIpsumValue()), 10000);
 });
 
 server.listen(8083, () => {
