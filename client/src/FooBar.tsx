@@ -10,15 +10,18 @@ export default function FooBar({ notify }: FooBarProps) {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
   const [data, setData] = useState<number[]>([]);
 
+  function connect() {
+    setSocketIsConnected(true);
+    socket.connect();
+  }
+
+  function disconnect() {
+    setSocketIsConnected(false);
+    socket.emit("pre-disconnect", socket.id);
+    socket.disconnect();
+  }
+
   useEffect(() => {
-    function onConnect() {
-      setSocketIsConnected(true);
-    }
-
-    function onDisconnect() {
-      setSocketIsConnected(false);
-    }
-
     function handleFooBar(value: number) {
       setData((prev) => {
         const newFooBar =
@@ -32,22 +35,35 @@ export default function FooBar({ notify }: FooBarProps) {
       }
     }
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
     socket.on("fooBar", handleFooBar);
 
     return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
       socket.off("fooBar", handleFooBar);
     };
-  }, []);
+  }, [notify]);
 
   return (
-    <section className="flex flex-col items-center py-10">
-      <p className="text-xl py-5">{`NodeJS Server 1 ${
-        socketIsConnected ? "✅" : "❎"
-      }`}</p>
+    <section className="flex flex-col items-center pb-10">
+      <section className="flex gap-8 py-5">
+        <p className="text-xl">{`NodeJS Server 1 ${
+          socketIsConnected ? "✅" : "❎"
+        }`}</p>
+        {socketIsConnected ? (
+          <button
+            className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
+            onClick={disconnect}
+          >
+            Disconnect
+          </button>
+        ) : (
+          <button
+            className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
+            onClick={connect}
+          >
+            Connect
+          </button>
+        )}
+      </section>
       <section className="flex flex-col">
         <BarChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
           <YAxis type="number" domain={[0, 100]} hide />

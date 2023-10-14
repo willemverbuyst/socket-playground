@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 
 const URL1 = "http://localhost:8080";
 
-export const socket1 = io(URL1);
+export const socket1 = io(URL1, { autoConnect: false });
 
 const URL2 = "http://localhost:8081";
 

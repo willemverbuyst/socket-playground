@@ -23,6 +23,7 @@ function generateFakeIpsumValue() {
 }
 
 io.on("connect", (socket) => {
+  console.log(`Client ${socket.id} connected`);
   setInterval(() => io.emit("lorem", generateFakeLoremValue()), 2000);
   setInterval(() => io.emit("ipsum", generateFakeIpsumValue()), 10000);
 });
