@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Area, AreaChart, YAxis } from "recharts";
+import Button from "./components/Button";
 import Wrapper from "./components/Wrapper";
 import { socket2 as socket } from "./socket";
 
@@ -54,19 +55,9 @@ export default function Quux() {
           socketIsConnected ? "✅" : "❎"
         }`}</p>
         {socketIsConnected ? (
-          <button
-            className="border border-slate-300 text-sm text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
-            onClick={disconnect}
-          >
-            Disconnect
-          </button>
+          <Button clickHandler={disconnect} caption="Disconnect" />
         ) : (
-          <button
-            className="border border-slate-300 text-sm text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
-            onClick={connect}
-          >
-            Connect
-          </button>
+          <Button clickHandler={connect} caption="Connect" />
         )}
       </section>
       <section className="flex flex-col">
