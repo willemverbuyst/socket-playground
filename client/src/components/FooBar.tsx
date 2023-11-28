@@ -35,7 +35,7 @@ export default function FooBar() {
 
     return () => {
       socket.off("connect", connect);
-      socket.off("disonnect", disconnect);
+      socket.off("disconnect", disconnect);
       socket.off("fooBar", setFooBarData);
     };
   }, [setFooBarData]);

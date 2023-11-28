@@ -10,10 +10,7 @@ function useFooBarData() {
 
   function setFooBarData(value: number) {
     setData((prev) => {
-      const newFooBar =
-        prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
-
-      return newFooBar;
+      return prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
     });
 
     if (value > 90) {

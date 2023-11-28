@@ -35,7 +35,7 @@ export default function Grault() {
 
     return () => {
       socket.off("connect", connect);
-      socket.off("disonnect", disconnect);
+      socket.off("disconnect", disconnect);
       socket.off("grault", setGraultData);
     };
   }, [setGraultData]);
