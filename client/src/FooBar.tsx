@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { Bar, BarChart, YAxis } from "recharts";
 import Button from "./components/Button";
 import Wrapper from "./components/Wrapper";
 import { socket1 as socket } from "./socket";
 
-type FooBarProps = {
-  notify: (value: string) => void;
-};
-
-export default function FooBar({ notify }: FooBarProps) {
+export default function FooBar() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
   const [data, setData] = useState<number[]>([]);
+
+  const notify = useCallback((value: string) => {
+    toast(value);
+  }, []);
 
   function connect() {
     socket.connect();
