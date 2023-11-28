@@ -16,14 +16,6 @@ services:
     stdin_open: true
     ports:
       - 8081:8081
-  server3:
-    build:
-      context: "./node-server-3"
-      dockerfile: "Dockerfile"
-    container_name: nodejs-server-3
-    stdin_open: true
-    ports:
-      - 8083:8083
   server4:
     build:
       context: "./python-server"
