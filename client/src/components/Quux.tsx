@@ -6,9 +6,39 @@ import Button from "./Button";
 import Wrapper from "./Wrapper";
 import Header from "./Header.tsx";
 
+function Chart() {
+  const { quuxData, setQuuxData } = useQuuxData();
+
+  useEffect(() => {
+    socket.on("quux", setQuuxData);
+
+    return () => {
+      socket.off("quux", setQuuxData);
+    };
+  }, [setQuuxData]);
+
+  return (
+    <section className="flex flex-col">
+      <AreaChart
+        width={300}
+        height={100}
+        data={quuxData.map((i) => ({ v: i }))}
+      >
+        <YAxis type="number" domain={[0, 100]} hide />
+        <Area
+          type="monotone"
+          dataKey="v"
+          fill="#ff0044"
+          isAnimationActive={false}
+          dot={false}
+        />
+      </AreaChart>
+    </section>
+  );
+}
+
 export default function Quux() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
-  const { quuxData, setQuuxData } = useQuuxData();
 
   function connect() {
     socket.connect();
@@ -20,6 +50,10 @@ export default function Quux() {
   }
 
   useEffect(() => {
+    socket.connect();
+  }, []);
+
+  useEffect(() => {
     function connect() {
       setSocketIsConnected(true);
     }
@@ -28,46 +62,24 @@ export default function Quux() {
       setSocketIsConnected(false);
     }
 
-    socket.connect();
-
     socket.on("connect", connect);
     socket.on("disconnect", disConnect);
-    socket.on("quux", setQuuxData);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
-      socket.off("quux", setQuuxData);
     };
-  }, [setQuuxData]);
+  }, []);
 
   return (
     <Wrapper>
       <Header socketIsConnected={socketIsConnected} text={"NodeJS Server 2"} />
-
-      <section className="flex flex-col">
-        <AreaChart
-          width={300}
-          height={100}
-          data={quuxData.map((i) => ({ v: i }))}
-        >
-          <YAxis type="number" domain={[0, 100]} hide />
-          <Area
-            type="monotone"
-            dataKey="v"
-            fill="#ff0044"
-            isAnimationActive={false}
-            dot={false}
-          />
-        </AreaChart>
-      </section>
-      <section className="flex w-96 justify-end p-4 py-5 absolute top-0 -right-3">
-        {socketIsConnected ? (
-          <Button clickHandler={disconnect} caption="Disconnect" />
-        ) : (
-          <Button clickHandler={connect} caption="Connect" />
-        )}
-      </section>
+      <Chart />
+      <Button
+        socketIsConnected={socketIsConnected}
+        connect={connect}
+        disconnect={disconnect}
+      />
     </Wrapper>
   );
 }
