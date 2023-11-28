@@ -4,6 +4,7 @@ import { socket1 as socket } from "../config/socket";
 import useFooBarData from "../hooks/useFooBarData";
 import Button from "./Button";
 import Wrapper from "./Wrapper";
+import Header from "./Header.tsx";
 
 export default function FooBar() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
@@ -42,16 +43,8 @@ export default function FooBar() {
 
   return (
     <Wrapper>
-      <section className="flex w-96 justify-between p-4 py-5">
-        <p className="text-xl">{`NodeJS Server 1 ${
-          socketIsConnected ? "✅" : "❎"
-        }`}</p>
-        {socketIsConnected ? (
-          <Button clickHandler={disconnect} caption="Disconnect" />
-        ) : (
-          <Button clickHandler={connect} caption="Connect" />
-        )}
-      </section>
+      <Header socketIsConnected={socketIsConnected} text={"NodeJS Server 1"} />
+
       <section className="flex flex-col">
         <BarChart
           width={300}
@@ -61,6 +54,13 @@ export default function FooBar() {
           <YAxis type="number" domain={[0, 100]} hide />
           <Bar dataKey="v" fill="#00ff44" isAnimationActive={false} />
         </BarChart>
+      </section>
+      <section className="flex w-96 justify-end p-4 py-5">
+        {socketIsConnected ? (
+          <Button clickHandler={disconnect} caption="Disconnect" />
+        ) : (
+          <Button clickHandler={connect} caption="Connect" />
+        )}
       </section>
     </Wrapper>
   );

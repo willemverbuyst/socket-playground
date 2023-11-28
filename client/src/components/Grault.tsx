@@ -4,6 +4,7 @@ import { socket3 as socket } from "../config/socket";
 import useGraultData from "../hooks/useGraultData";
 import Button from "./Button";
 import Wrapper from "./Wrapper";
+import Header from "./Header.tsx";
 
 export default function Grault() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
@@ -46,16 +47,8 @@ export default function Grault() {
 
   return (
     <Wrapper>
-      <section className="flex w-96 justify-between p-4 py-5">
-        <p className="text-xl">{`Python Server ${
-          socketIsConnected ? "✅" : "❎"
-        }`}</p>
-        {socketIsConnected ? (
-          <Button clickHandler={disconnect} caption="Disconnect" />
-        ) : (
-          <Button clickHandler={connect} caption="Connect" />
-        )}
-      </section>
+      <Header socketIsConnected={socketIsConnected} text={"Python Server"} />
+
       <section className="flex flex-col">
         <ScatterChart
           width={300}
@@ -83,6 +76,13 @@ export default function Grault() {
             fill="#ff007f"
           />
         </ScatterChart>
+      </section>
+      <section className="flex w-96 justify-end p-4 py-5">
+        {socketIsConnected ? (
+          <Button clickHandler={disconnect} caption="Disconnect" />
+        ) : (
+          <Button clickHandler={connect} caption="Connect" />
+        )}
       </section>
     </Wrapper>
   );

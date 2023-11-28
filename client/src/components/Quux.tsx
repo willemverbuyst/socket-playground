@@ -4,6 +4,7 @@ import { socket2 as socket } from "../config/socket";
 import useQuuxData from "../hooks/useQuuxData";
 import Button from "./Button";
 import Wrapper from "./Wrapper";
+import Header from "./Header.tsx";
 
 export default function Quux() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
@@ -42,16 +43,8 @@ export default function Quux() {
 
   return (
     <Wrapper>
-      <section className="flex w-96 justify-between p-4 py-5">
-        <p className="text-xl">{`NodeJS Server 2 ${
-          socketIsConnected ? "✅" : "❎"
-        }`}</p>
-        {socketIsConnected ? (
-          <Button clickHandler={disconnect} caption="Disconnect" />
-        ) : (
-          <Button clickHandler={connect} caption="Connect" />
-        )}
-      </section>
+      <Header socketIsConnected={socketIsConnected} text={"NodeJS Server 2"} />
+
       <section className="flex flex-col">
         <AreaChart
           width={300}
@@ -67,6 +60,13 @@ export default function Quux() {
             dot={false}
           />
         </AreaChart>
+      </section>
+      <section className="flex w-96 justify-end p-4 py-5">
+        {socketIsConnected ? (
+          <Button clickHandler={disconnect} caption="Disconnect" />
+        ) : (
+          <Button clickHandler={connect} caption="Connect" />
+        )}
       </section>
     </Wrapper>
   );
