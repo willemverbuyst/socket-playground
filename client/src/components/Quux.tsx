@@ -1,17 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { Bar, BarChart, YAxis } from "recharts";
-import Button from "./components/Button";
-import Wrapper from "./components/Wrapper";
-import { socket1 as socket } from "./socket";
+import { useEffect, useState } from "react";
+import { Area, AreaChart, YAxis } from "recharts";
+import { socket2 as socket } from "../config/socket";
+import Button from "./Button";
+import Wrapper from "./Wrapper";
 
-export default function FooBar() {
+export default function Quux() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
   const [data, setData] = useState<number[]>([]);
-
-  const notify = useCallback((value: string) => {
-    toast(value);
-  }, []);
 
   function connect() {
     socket.connect();
@@ -31,36 +26,32 @@ export default function FooBar() {
       setSocketIsConnected(false);
     }
 
-    function handleFooBar(value: number) {
+    function handleQuux(value: number) {
       setData((prev) => {
-        const newFooBar =
+        const newQuux =
           prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
 
-        return newFooBar;
+        return newQuux;
       });
-
-      if (value > 90) {
-        notify(`[NodeJS Server 1]: ${value}, value exceeds 90`);
-      }
     }
 
     socket.connect();
 
     socket.on("connect", connect);
     socket.on("disconnect", disConnect);
-    socket.on("fooBar", handleFooBar);
+    socket.on("quux", handleQuux);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disonnect", disconnect);
-      socket.off("fooBar", handleFooBar);
+      socket.off("quux", handleQuux);
     };
-  }, [notify]);
+  }, []);
 
   return (
     <Wrapper>
       <section className="flex w-96 justify-between p-4 py-5">
-        <p className="text-xl">{`NodeJS Server 1 ${
+        <p className="text-xl">{`NodeJS Server 2 ${
           socketIsConnected ? "✅" : "❎"
         }`}</p>
         {socketIsConnected ? (
@@ -70,10 +61,16 @@ export default function FooBar() {
         )}
       </section>
       <section className="flex flex-col">
-        <BarChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
+        <AreaChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
           <YAxis type="number" domain={[0, 100]} hide />
-          <Bar dataKey="v" fill="#00ff44" isAnimationActive={false} />
-        </BarChart>
+          <Area
+            type="monotone"
+            dataKey="v"
+            fill="#ff0044"
+            isAnimationActive={false}
+            dot={false}
+          />
+        </AreaChart>
       </section>
     </Wrapper>
   );

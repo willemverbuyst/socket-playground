@@ -1,8 +1,8 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FooBar from "./FooBar";
-import Grault from "./Grault";
-import Quux from "./Quux";
+import FooBar from "./components/FooBar";
+import Grault from "./components/Grault";
+import Quux from "./components/Quux";
 
 export default function App() {
   return (

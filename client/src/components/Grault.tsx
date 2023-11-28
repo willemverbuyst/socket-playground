@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Scatter, ScatterChart, XAxis, YAxis, ZAxis } from "recharts";
-import Button from "./components/Button";
-import Wrapper from "./components/Wrapper";
-import { socket3 as socket } from "./socket";
+import { socket3 as socket } from "../config/socket";
+import Button from "./Button";
+import Wrapper from "./Wrapper";
 
 export default function Grault() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
