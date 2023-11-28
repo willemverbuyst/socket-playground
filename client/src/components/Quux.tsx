@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Area, AreaChart, YAxis } from "recharts";
 import { socket2 as socket } from "../config/socket";
 import useQuuxData from "../hooks/useQuuxData";
 import Button from "./Button";
 import Wrapper from "./Wrapper";
 import Header from "./Header.tsx";
+import useSocket from "../hooks/useSocket.tsx";
 
 function Chart() {
   const { quuxData, setQuuxData } = useQuuxData();
@@ -38,38 +39,7 @@ function Chart() {
 }
 
 export default function Quux() {
-  const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
-
-  function connect() {
-    socket.connect();
-  }
-
-  function disconnect() {
-    socket.emit("pre-disconnect", socket.id);
-    socket.disconnect();
-  }
-
-  useEffect(() => {
-    socket.connect();
-  }, []);
-
-  useEffect(() => {
-    function connect() {
-      setSocketIsConnected(true);
-    }
-
-    function disConnect() {
-      setSocketIsConnected(false);
-    }
-
-    socket.on("connect", connect);
-    socket.on("disconnect", disConnect);
-
-    return () => {
-      socket.off("connect", connect);
-      socket.off("disconnect", disconnect);
-    };
-  }, []);
+  const { connect, disconnect, socketIsConnected } = useSocket({ socket });
 
   return (
     <Wrapper>
