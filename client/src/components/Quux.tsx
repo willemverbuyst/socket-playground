@@ -1,30 +1,27 @@
 import { useEffect } from "react";
 import { Area, AreaChart, YAxis } from "recharts";
 import { socket2 as socket } from "../config/socket";
-import useQuuxData from "../hooks/useQuuxData";
 import Button from "./Button";
 import Wrapper from "./Wrapper";
 import Header from "./Header.tsx";
 import useSocket from "../hooks/useSocket.tsx";
+import useSocketData from "../hooks/useSocketData.tsx";
+import { SERVER2 } from "../config/severs.ts";
 
 function Chart() {
-  const { quuxData, setQuuxData } = useQuuxData();
+  const { data, handleData } = useSocketData({ serverName: SERVER2 });
 
   useEffect(() => {
-    socket.on("quux", setQuuxData);
+    socket.on("quux", handleData);
 
     return () => {
-      socket.off("quux", setQuuxData);
+      socket.off("quux", handleData);
     };
-  }, [setQuuxData]);
+  }, [handleData]);
 
   return (
     <section className="flex flex-col">
-      <AreaChart
-        width={300}
-        height={100}
-        data={quuxData.map((i) => ({ v: i }))}
-      >
+      <AreaChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
         <YAxis type="number" domain={[0, 100]} hide />
         <Area
           type="monotone"
@@ -43,7 +40,7 @@ export default function Quux() {
 
   return (
     <Wrapper>
-      <Header socketIsConnected={socketIsConnected} text={"NodeJS Server 2"} />
+      <Header socketIsConnected={socketIsConnected} text={SERVER2} />
       <Chart />
       <Button
         socketIsConnected={socketIsConnected}

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 
-export default function useSocket({ socket }: { socket: Socket }) {
+type UseSocketProps = { socket: Socket };
+
+export default function useSocket({ socket }: UseSocketProps) {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
   function connect() {
     socket.connect();

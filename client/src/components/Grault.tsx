@@ -1,24 +1,25 @@
-import { useEffect } from "react";
 import { Scatter, ScatterChart, XAxis, YAxis, ZAxis } from "recharts";
 import { socket3 as socket } from "../config/socket";
-import useGraultData from "../hooks/useGraultData";
 import Button from "./Button";
 import Wrapper from "./Wrapper";
 import Header from "./Header.tsx";
 import useSocket from "../hooks/useSocket.tsx";
+import useSocketData from "../hooks/useSocketData.tsx";
+import { SERVER3 } from "../config/severs.ts";
+import { useEffect } from "react";
 
 function Chart() {
-  const { graultData, setGraultData } = useGraultData();
+  const { data, handleData } = useSocketData({ serverName: SERVER3 });
 
   useEffect(() => {
-    socket.on("grault", setGraultData);
+    socket.on("grault", handleData);
 
     return () => {
-      socket.off("grault", setGraultData);
+      socket.off("grault", handleData);
     };
-  }, [setGraultData]);
+  }, [handleData]);
 
-  const parseDomain = () => [0, Math.max.apply(graultData)];
+  const parseDomain = () => [0, Math.max.apply(data)];
 
   const domain = parseDomain();
 
@@ -32,10 +33,7 @@ function Chart() {
         <ZAxis type="number" dataKey="x" domain={domain} range={[0, 200]} />
         <XAxis dataKey="x" hide={true} />
         <YAxis dataKey="y" hide={true} />
-        <Scatter
-          data={graultData.map((i) => ({ x: i, y: 1 }))}
-          fill="#00ffff"
-        />
+        <Scatter data={data.map((i) => ({ x: i, y: 1 }))} fill="#00ffff" />
       </ScatterChart>
       <ScatterChart
         width={300}
@@ -46,7 +44,7 @@ function Chart() {
         <XAxis dataKey="x" hide={true} />
         <YAxis dataKey="y" hide={true} />
         <Scatter
-          data={graultData.reverse().map((i) => ({ x: i, y: 1 }))}
+          data={data.reverse().map((i) => ({ x: i, y: 1 }))}
           fill="#ff007f"
         />
       </ScatterChart>
@@ -58,7 +56,7 @@ export default function Grault() {
 
   return (
     <Wrapper>
-      <Header socketIsConnected={socketIsConnected} text={"Python Server"} />
+      <Header socketIsConnected={socketIsConnected} text={SERVER3} />
       <Chart />
       <Button
         socketIsConnected={socketIsConnected}
