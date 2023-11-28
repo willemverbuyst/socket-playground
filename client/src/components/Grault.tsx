@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Scatter, ScatterChart, XAxis, YAxis, ZAxis } from "recharts";
 import { socket3 as socket } from "../config/socket";
+import useGraultData from "../hooks/useGraultData";
 import Button from "./Button";
 import Wrapper from "./Wrapper";
 
 export default function Grault() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
-  const [data, setData] = useState<number[]>([]);
+  const { graultData, setGraultData } = useGraultData();
 
   function connect() {
     socket.connect();
@@ -26,29 +27,20 @@ export default function Grault() {
       setSocketIsConnected(false);
     }
 
-    function handleGrault(value: number) {
-      setData((prev) => {
-        const newFooBar =
-          prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
-
-        return newFooBar;
-      });
-    }
-
     socket.connect();
 
     socket.on("connect", connect);
     socket.on("disconnect", disConnect);
-    socket.on("grault", handleGrault);
+    socket.on("grault", setGraultData);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disonnect", disconnect);
-      socket.off("grault", handleGrault);
+      socket.off("grault", setGraultData);
     };
-  }, []);
+  }, [setGraultData]);
 
-  const parseDomain = () => [0, Math.max.apply(null, data)];
+  const parseDomain = () => [0, Math.max.apply(graultData)];
 
   const domain = parseDomain();
 
@@ -73,7 +65,10 @@ export default function Grault() {
           <ZAxis type="number" dataKey="x" domain={domain} range={[0, 200]} />
           <XAxis dataKey="x" hide={true} />
           <YAxis dataKey="y" hide={true} />
-          <Scatter data={data.map((i) => ({ x: i, y: 1 }))} fill="#00ffff" />
+          <Scatter
+            data={graultData.map((i) => ({ x: i, y: 1 }))}
+            fill="#00ffff"
+          />
         </ScatterChart>
         <ScatterChart
           width={300}
@@ -84,7 +79,7 @@ export default function Grault() {
           <XAxis dataKey="x" hide={true} />
           <YAxis dataKey="y" hide={true} />
           <Scatter
-            data={data.reverse().map((i) => ({ x: i, y: 1 }))}
+            data={graultData.reverse().map((i) => ({ x: i, y: 1 }))}
             fill="#ff007f"
           />
         </ScatterChart>

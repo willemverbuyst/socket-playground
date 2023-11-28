@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Area, AreaChart, YAxis } from "recharts";
 import { socket2 as socket } from "../config/socket";
+import useQuuxData from "../hooks/useQuuxData";
 import Button from "./Button";
 import Wrapper from "./Wrapper";
 
 export default function Quux() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
-  const [data, setData] = useState<number[]>([]);
+  const { quuxData, setQuuxData } = useQuuxData();
 
   function connect() {
     socket.connect();
@@ -26,27 +27,18 @@ export default function Quux() {
       setSocketIsConnected(false);
     }
 
-    function handleQuux(value: number) {
-      setData((prev) => {
-        const newQuux =
-          prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
-
-        return newQuux;
-      });
-    }
-
     socket.connect();
 
     socket.on("connect", connect);
     socket.on("disconnect", disConnect);
-    socket.on("quux", handleQuux);
+    socket.on("quux", setQuuxData);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disonnect", disconnect);
-      socket.off("quux", handleQuux);
+      socket.off("quux", setQuuxData);
     };
-  }, []);
+  }, [setQuuxData]);
 
   return (
     <Wrapper>
@@ -61,7 +53,11 @@ export default function Quux() {
         )}
       </section>
       <section className="flex flex-col">
-        <AreaChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
+        <AreaChart
+          width={300}
+          height={100}
+          data={quuxData.map((i) => ({ v: i }))}
+        >
           <YAxis type="number" domain={[0, 100]} hide />
           <Area
             type="monotone"

@@ -1,17 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 import { Bar, BarChart, YAxis } from "recharts";
 import { socket1 as socket } from "../config/socket";
+import useFooBarData from "../hooks/useFooBarData";
 import Button from "./Button";
 import Wrapper from "./Wrapper";
 
 export default function FooBar() {
   const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
-  const [data, setData] = useState<number[]>([]);
-
-  const notify = useCallback((value: string) => {
-    toast(value);
-  }, []);
+  const { fooBarData, setFooBarData } = useFooBarData();
 
   function connect() {
     socket.connect();
@@ -31,31 +27,18 @@ export default function FooBar() {
       setSocketIsConnected(false);
     }
 
-    function handleFooBar(value: number) {
-      setData((prev) => {
-        const newFooBar =
-          prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
-
-        return newFooBar;
-      });
-
-      if (value > 90) {
-        notify(`[NodeJS Server 1]: ${value}, value exceeds 90`);
-      }
-    }
-
     socket.connect();
 
     socket.on("connect", connect);
     socket.on("disconnect", disConnect);
-    socket.on("fooBar", handleFooBar);
+    socket.on("fooBar", setFooBarData);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disonnect", disconnect);
-      socket.off("fooBar", handleFooBar);
+      socket.off("fooBar", setFooBarData);
     };
-  }, [notify]);
+  }, [setFooBarData]);
 
   return (
     <Wrapper>
@@ -70,7 +53,11 @@ export default function FooBar() {
         )}
       </section>
       <section className="flex flex-col">
-        <BarChart width={300} height={100} data={data.map((i) => ({ v: i }))}>
+        <BarChart
+          width={300}
+          height={100}
+          data={fooBarData.map((i) => ({ v: i }))}
+        >
           <YAxis type="number" domain={[0, 100]} hide />
           <Bar dataKey="v" fill="#00ff44" isAnimationActive={false} />
         </BarChart>
