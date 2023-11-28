@@ -61,7 +61,7 @@ export default function Quux() {
           />
         </AreaChart>
       </section>
-      <section className="flex w-96 justify-end p-4 py-5">
+      <section className="flex w-96 justify-end p-4 py-5 absolute top-0 -right-3">
         {socketIsConnected ? (
           <Button clickHandler={disconnect} caption="Disconnect" />
         ) : (
