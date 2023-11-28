@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 
-function useFooBarData() {
+export default function useFooBarData() {
   const [data, setData] = useState<number[]>([]);
 
   const notify = useCallback((value: string) => {
@@ -20,5 +20,3 @@ function useFooBarData() {
 
   return { fooBarData: data, setFooBarData };
 }
-
-export default useFooBarData;
