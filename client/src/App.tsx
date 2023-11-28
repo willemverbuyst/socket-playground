@@ -13,7 +13,7 @@ export default function App() {
         <Grault />
         <Quux />
       </section>
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer position="bottom-left" autoClose={2000} />
     </main>
   );
 }
