@@ -32,7 +32,7 @@ def handle_disconnect(sid):
     print(f'Client {sid} disconnected')
 
 if __name__ == '__main__':
-    print("Server is running")
+    print("python server is running on http://localhost:8082")
     app = socketio.WSGIApp(sio)
 
     eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 8082)), app)
