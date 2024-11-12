@@ -24,3 +24,11 @@ services:
     stdin_open: true
     ports:
       - 8082:8082
+  denoserver:
+    build:
+      context: "./deno-server"
+      dockerfile: "Dockerfile"
+    container_name: deno-server
+    stdin_open: true
+    ports:
+      - 8084:8084

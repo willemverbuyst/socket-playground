@@ -1,23 +1,5 @@
-// Deno.serve((req) => {
-//   if (req.headers.get("upgrade") != "websocket") {
-//     return new Response(null, { status: 501 });
-//   }
-
-//   const { socket, response } = Deno.upgradeWebSocket(req);
-
-//   socket.addEventListener("open", () => {
-//     console.log("a client connected!");
-//   });
-
-//   socket.addEventListener("close", () => {
-//     console.log("Client disconnected");
-//   });
-
-//   return response;
-// });
-
 Deno.serve({
-  port: 8004,
+  port: 8084,
   handler: async (request) => {
     // If the request is a websocket upgrade,
     // we need to use the Deno.upgradeWebSocket helper
