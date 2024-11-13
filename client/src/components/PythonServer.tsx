@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { useEffect } from "react";
 import { Scatter, ScatterChart, XAxis, YAxis, ZAxis } from "recharts";
 import { PYTHON_SERVER } from "../config/severs.ts";
-import { pythonSocket as socket } from "../config/socket";
+import { pythonSocket as socket } from "../config/socket.ts";
 import useSocket from "../hooks/useSocket.ts";
 import useSocketData from "../hooks/useSocketData.ts";
 
@@ -57,7 +57,7 @@ function Chart() {
     </section>
   );
 }
-export default function Grault() {
+export default function PythonServer() {
   const { connect, disconnect, socketIsConnected } = useSocket({ socket });
 
   function handleSwitch() {

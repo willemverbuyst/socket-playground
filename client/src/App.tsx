@@ -1,8 +1,10 @@
 import "react-toastify/dist/ReactToastify.css";
-import Corge from "./components/Corge.tsx";
-import FooBar from "./components/FooBar.tsx";
-import Grault from "./components/Grault.tsx";
-import Quux from "./components/Quux.tsx";
+import DenoServer from "./components/DenoServer.tsx";
+import NodeJSServer1 from "./components/NodeJSServer1.tsx";
+import NodeJSServer2 from "./components/NodeJSServer2.tsx";
+import NodeJSServer3 from "./components/NodeJSServer3.tsx";
+import NodeJSServer4 from "./components/NodeJSServer4.tsx";
+import PythonServer from "./components/PythonServer.tsx";
 import { Toaster } from "./components/ui/toaster.tsx";
 
 export default function App() {
@@ -11,11 +13,13 @@ export default function App() {
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         SocketIO
       </h1>
-      <section className="grid grid-cols-2 gap-20 mx-auto">
-        <FooBar />
-        <Grault />
-        <Quux />
-        <Corge />
+      <section className="grid grid-cols-3 gap-10 mx-auto">
+        <NodeJSServer1 />
+        <PythonServer />
+        <NodeJSServer3 />
+        <NodeJSServer2 />
+        <DenoServer />
+        <NodeJSServer4 />
       </section>
       <Toaster />
     </main>

@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { useEffect } from "react";
 import { Bar, BarChart, YAxis } from "recharts";
 import { DENO_SERVER } from "../config/severs.ts";
-import { denoSocket as socket } from "../config/socket";
+import { denoSocket as socket } from "../config/socket.ts";
 import useSocket from "../hooks/useSocket.ts";
 import useSocketData from "../hooks/useSocketData.ts";
 
@@ -35,7 +35,7 @@ function Chart() {
   );
 }
 
-export default function Corge() {
+export default function DenoServer() {
   const { connect, disconnect, socketIsConnected } = useSocket({ socket });
 
   function handleSwitch() {
