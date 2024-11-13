@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { Area, AreaChart, YAxis } from "recharts";
-import { socket2 as socket } from "../config/socket";
-import Button from "./Button";
-import Wrapper from "./Wrapper";
-import Header from "./Header.tsx";
+import { NODE_SERVER_2 } from "../config/severs.ts";
+import { nodeSocket2 as socket } from "../config/socket";
 import useSocket from "../hooks/useSocket.tsx";
 import useSocketData from "../hooks/useSocketData.tsx";
-import { SERVER2 } from "../config/severs.ts";
+import Button from "./Button";
+import Header from "./Header.tsx";
+import Wrapper from "./Wrapper";
 
 function Chart() {
-  const { data, handleData } = useSocketData({ serverName: SERVER2 });
+  const { data, handleData } = useSocketData({ serverName: NODE_SERVER_2 });
 
   useEffect(() => {
     socket.on("quux", handleData);
@@ -40,7 +40,7 @@ export default function Quux() {
 
   return (
     <Wrapper>
-      <Header socketIsConnected={socketIsConnected} text={SERVER2} />
+      <Header socketIsConnected={socketIsConnected} text={NODE_SERVER_2} />
       <Chart />
       <Button
         socketIsConnected={socketIsConnected}

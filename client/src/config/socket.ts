@@ -1,13 +1,6 @@
 import { io } from "socket.io-client";
 
-const URL1 = "http://localhost:8080";
-
-export const socket1 = io(URL1, { autoConnect: false });
-
-const URL2 = "http://localhost:8081";
-
-export const socket2 = io(URL2);
-
-const URL3 = "http://localhost:8082";
-
-export const socket3 = io(URL3);
+export const nodeSocket1 = io("http://localhost:8080", { autoConnect: false });
+export const nodeSocket2 = io("http://localhost:8081");
+export const pythonSocket = io("http://localhost:8082");
+export const denoSocket = io("http://localhost:8083");

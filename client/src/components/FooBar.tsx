@@ -1,15 +1,15 @@
+import { useEffect } from "react";
 import { Bar, BarChart, YAxis } from "recharts";
-import { socket1 as socket } from "../config/socket";
-import Button from "./Button";
-import Wrapper from "./Wrapper";
-import Header from "./Header.tsx";
+import { NODE_SERVER_1 } from "../config/severs.ts";
+import { nodeSocket1 as socket } from "../config/socket";
 import useSocket from "../hooks/useSocket.tsx";
 import useSocketData from "../hooks/useSocketData.tsx";
-import { SERVER1 } from "../config/severs.ts";
-import { useEffect } from "react";
+import Button from "./Button";
+import Header from "./Header.tsx";
+import Wrapper from "./Wrapper";
 
 function Chart() {
-  const { data, handleData } = useSocketData({ serverName: SERVER1 });
+  const { data, handleData } = useSocketData({ serverName: NODE_SERVER_1 });
 
   useEffect(() => {
     socket.on("fooBar", handleData);
@@ -34,7 +34,7 @@ export default function FooBar() {
 
   return (
     <Wrapper>
-      <Header socketIsConnected={socketIsConnected} text={SERVER1} />
+      <Header socketIsConnected={socketIsConnected} text={NODE_SERVER_1} />
       <Chart />
       <Button
         socketIsConnected={socketIsConnected}

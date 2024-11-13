@@ -1,15 +1,15 @@
+import { useEffect } from "react";
 import { Scatter, ScatterChart, XAxis, YAxis, ZAxis } from "recharts";
-import { socket3 as socket } from "../config/socket";
-import Button from "./Button";
-import Wrapper from "./Wrapper";
-import Header from "./Header.tsx";
+import { PYTHON_SERVER } from "../config/severs.ts";
+import { pythonSocket as socket } from "../config/socket";
 import useSocket from "../hooks/useSocket.tsx";
 import useSocketData from "../hooks/useSocketData.tsx";
-import { SERVER3 } from "../config/severs.ts";
-import { useEffect } from "react";
+import Button from "./Button";
+import Header from "./Header.tsx";
+import Wrapper from "./Wrapper";
 
 function Chart() {
-  const { data, handleData } = useSocketData({ serverName: SERVER3 });
+  const { data, handleData } = useSocketData({ serverName: PYTHON_SERVER });
 
   useEffect(() => {
     socket.on("grault", handleData);
@@ -56,7 +56,7 @@ export default function Grault() {
 
   return (
     <Wrapper>
-      <Header socketIsConnected={socketIsConnected} text={SERVER3} />
+      <Header socketIsConnected={socketIsConnected} text={PYTHON_SERVER} />
       <Chart />
       <Button
         socketIsConnected={socketIsConnected}
