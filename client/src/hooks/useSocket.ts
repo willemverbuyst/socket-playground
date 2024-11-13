@@ -19,22 +19,14 @@ export default function useSocket({ socket }: UseSocketProps) {
   }, [socket]);
 
   useEffect(() => {
-    function connect() {
-      setSocketIsConnected(true);
-    }
-
-    function disconnect() {
-      setSocketIsConnected(false);
-    }
-
-    socket.on("connect", connect);
-    socket.on("connection", connect);
-    socket.on("disconnect", disconnect);
+    socket.on("connect", () => setSocketIsConnected(true));
+    socket.on("connection", () => setSocketIsConnected(true));
+    socket.on("disconnect", () => setSocketIsConnected(false));
 
     return () => {
-      socket.off("connect", connect);
-      socket.off("connection", connect);
-      socket.off("disconnect", disconnect);
+      socket.off("connect", () => setSocketIsConnected(true));
+      socket.off("connection", () => setSocketIsConnected(true));
+      socket.off("disconnect", () => setSocketIsConnected(false));
     };
   }, [socket]);
 

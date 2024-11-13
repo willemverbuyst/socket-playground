@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useToast } from "./use-toast";
+import { useToast } from "./useToast";
 
 type UseSocketDataProps = {
   serverName: string;
