@@ -11,8 +11,8 @@ import { useEffect } from "react";
 import { Scatter, ScatterChart, XAxis, YAxis, ZAxis } from "recharts";
 import { PYTHON_SERVER } from "../config/severs.ts";
 import { pythonSocket as socket } from "../config/socket";
-import useSocket from "../hooks/useSocket.tsx";
-import useSocketData from "../hooks/useSocketData.tsx";
+import useSocket from "../hooks/useSocket.ts";
+import useSocketData from "../hooks/useSocketData.ts";
 
 function Chart() {
   const { data, handleData } = useSocketData({ serverName: PYTHON_SERVER });

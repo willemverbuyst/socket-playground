@@ -7,12 +7,12 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import useSocket from "@/hooks/useSocket.tsx";
+import useSocket from "@/hooks/useSocket.ts";
 import { useEffect } from "react";
 import { Bar, BarChart, YAxis } from "recharts";
 import { NODE_SERVER_1 } from "../config/severs.ts";
 import { nodeSocket1 as socket } from "../config/socket";
-import useSocketData from "../hooks/useSocketData.tsx";
+import useSocketData from "../hooks/useSocketData.ts";
 
 function Chart() {
   const { data, handleData } = useSocketData({ serverName: NODE_SERVER_1 });

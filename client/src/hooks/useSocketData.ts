@@ -1,23 +1,24 @@
-import { useCallback, useState } from "react";
-import { toast } from "react-toastify";
+import { useState } from "react";
+import { useToast } from "./use-toast";
 
 type UseSocketDataProps = {
   serverName: string;
 };
 export default function useSocketData({ serverName }: UseSocketDataProps) {
+  const { toast } = useToast();
   const [data, setData] = useState<number[]>([]);
-
-  const notify = useCallback((value: string) => {
-    toast(value);
-  }, []);
 
   function handleData(value: number) {
     setData((prev) => {
       return prev.length < 10 ? [...prev, value] : [...prev, value].slice(1);
     });
 
-    if (value > 90) {
-      notify(`[${serverName}]: ${value}, value exceeds 90`);
+    if (value > 95) {
+      toast({
+        title: serverName,
+        description: `Value ${value} - danger zone! (>95)`,
+        variant: "destructive",
+      });
     }
   }
 
