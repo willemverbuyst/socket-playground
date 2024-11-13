@@ -32,4 +32,4 @@ services:
     container_name: deno-server
     stdin_open: true
     ports:
-      - 8084:8084
+      - 8083:8083

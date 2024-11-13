@@ -1,1 +1,1 @@
-> deno --allow-net --allow-read main.ts
+> deno --allow-net main.ts
