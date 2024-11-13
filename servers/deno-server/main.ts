@@ -14,7 +14,10 @@ function generateFakeValue() {
 
 io.on("connection", (socket) => {
   console.log(`Client ${socket.id} connected`);
-  const int = setInterval(() => io.emit("corge", generateFakeValue()), 1000);
+  const int = setInterval(
+    () => io.emit("denoserver", generateFakeValue()),
+    1000
+  );
 
   socket.on("pre-disconnect", (id) => {
     console.log(`Client ${id} disconnecting`);

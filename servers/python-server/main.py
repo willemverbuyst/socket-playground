@@ -19,7 +19,7 @@ def handle_connect(sid, environ):
 
 
 def emit_random_number():
-    sio.emit('grault', random.randint(0, 100))
+    sio.emit('pythonserver', random.randint(0, 100))
     
     eventlet.spawn_after(2, emit_random_number)
 

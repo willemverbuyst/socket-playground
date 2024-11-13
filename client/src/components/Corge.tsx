@@ -18,10 +18,10 @@ function Chart() {
   const { data, handleData } = useSocketData({ serverName: DENO_SERVER });
 
   useEffect(() => {
-    socket.on("corge", handleData);
+    socket.on("denoserver", handleData);
 
     return () => {
-      socket.off("corge", handleData);
+      socket.off("denoserver", handleData);
     };
   }, [handleData]);
 

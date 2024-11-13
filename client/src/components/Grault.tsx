@@ -18,10 +18,10 @@ function Chart() {
   const { data, handleData } = useSocketData({ serverName: PYTHON_SERVER });
 
   useEffect(() => {
-    socket.on("grault", handleData);
+    socket.on("pythonserver", handleData);
 
     return () => {
-      socket.off("grault", handleData);
+      socket.off("pythonserver", handleData);
     };
   }, [handleData]);
 

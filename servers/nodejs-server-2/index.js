@@ -29,5 +29,5 @@ io.on("connect", (socket) => {
 });
 
 server.listen(8081, () => {
-  console.log("node server 2 running on http://localhost:8081");
+  console.log("nodejs server 2 running on http://localhost:8081");
 });
