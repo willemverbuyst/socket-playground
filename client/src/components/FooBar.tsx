@@ -1,12 +1,18 @@
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import useSocket from "@/hooks/useSocket.tsx";
 import { useEffect } from "react";
 import { Bar, BarChart, YAxis } from "recharts";
 import { NODE_SERVER_1 } from "../config/severs.ts";
 import { nodeSocket1 as socket } from "../config/socket";
-import useSocket from "../hooks/useSocket.tsx";
 import useSocketData from "../hooks/useSocketData.tsx";
-import Button from "./Button";
-import Header from "./Header.tsx";
-import Wrapper from "./Wrapper";
 
 function Chart() {
   const { data, handleData } = useSocketData({ serverName: NODE_SERVER_1 });
@@ -32,15 +38,37 @@ function Chart() {
 export default function FooBar() {
   const { connect, disconnect, socketIsConnected } = useSocket({ socket });
 
+  function handleSwitch() {
+    if (socketIsConnected) {
+      disconnect();
+    } else {
+      connect();
+    }
+  }
+
   return (
-    <Wrapper>
-      <Header socketIsConnected={socketIsConnected} text={NODE_SERVER_1} />
-      <Chart />
-      <Button
-        socketIsConnected={socketIsConnected}
-        connect={connect}
-        disconnect={disconnect}
-      />
-    </Wrapper>
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-center uppercase font-thin">
+          {NODE_SERVER_1}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex justify-center">
+        <Chart />
+      </CardContent>
+      <CardFooter>
+        <div className="flex items-center space-x-2">
+          <Switch
+            id="foobar-socket"
+            checked={socketIsConnected}
+            onCheckedChange={handleSwitch}
+            className="data-[state=checked]:bg-gray-500"
+          />
+          <Label htmlFor="foobar-socket" className="text-gray-500">
+            {socketIsConnected ? "connected" : "disconnected"}
+          </Label>
+        </div>
+      </CardFooter>
+    </Card>
   );
 }
