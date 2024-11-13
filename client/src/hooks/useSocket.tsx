@@ -28,10 +28,12 @@ export default function useSocket({ socket }: UseSocketProps) {
     }
 
     socket.on("connect", connect);
+    socket.on("connection", connect);
     socket.on("disconnect", disconnect);
 
     return () => {
       socket.off("connect", connect);
+      socket.off("connection", connect);
       socket.off("disconnect", disconnect);
     };
   }, [socket]);

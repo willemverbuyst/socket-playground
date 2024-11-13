@@ -1,8 +1,9 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FooBar from "./components/FooBar";
-import Grault from "./components/Grault";
-import Quux from "./components/Quux";
+import Corge from "./components/Corge.tsx";
+import FooBar from "./components/FooBar.tsx";
+import Grault from "./components/Grault.tsx";
+import Quux from "./components/Quux.tsx";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <FooBar />
         <Grault />
         <Quux />
+        <Corge />
       </section>
       <ToastContainer position="bottom-left" autoClose={2000} />
     </main>
