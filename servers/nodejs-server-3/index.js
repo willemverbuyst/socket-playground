@@ -6,18 +6,17 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, { cors: { origin: "http://localhost:5173" } });
 
-app.get("/", (req, res) => {
-  res.send("<h1>Node Server 2</h1>");
-});
-
 function generateFakeValue() {
-  const value = Math.floor(Math.random() * (80 - 20 + 1)) + 20;
+  const value = Math.round(Math.random() * 100, 2);
   return value;
 }
 
 io.on("connect", (socket) => {
   console.log(`Client ${socket.id} connected`);
-  const int = setInterval(() => io.emit("quux", generateFakeValue()), 1000);
+  const int = setInterval(
+    () => io.emit("nodejsserver3", generateFakeValue()),
+    1500
+  );
 
   socket.on("pre-disconnect", (id) => {
     console.log(`Client ${id} disconnecting`);
@@ -29,6 +28,6 @@ io.on("connect", (socket) => {
   });
 });
 
-server.listen(8081, () => {
-  console.log("node server 2 running on http://localhost:8081");
+server.listen(8084, () => {
+  console.log("node server 3 running on http://localhost:8084");
 });

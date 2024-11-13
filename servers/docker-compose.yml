@@ -1,22 +1,22 @@
 version: "3"
 services:
-  server1:
+  nodejsserver1:
     build:
-      context: "./node-server-1"
+      context: "./nodejs-server-1"
       dockerfile: "Dockerfile"
     container_name: nodejs-server-1
     stdin_open: true
     ports:
       - 8080:8080
-  server2:
+  nodejsserver2:
     build:
-      context: "./node-server-2"
+      context: "./nodejs-server-2"
       dockerfile: "Dockerfile"
     container_name: nodejs-server-2
     stdin_open: true
     ports:
       - 8081:8081
-  server4:
+  pythonserver:
     build:
       context: "./python-server"
       dockerfile: "Dockerfile"
@@ -33,3 +33,19 @@ services:
     stdin_open: true
     ports:
       - 8083:8083
+  nodejsserver3:
+    build:
+      context: "./nodejs-server-3"
+      dockerfile: "Dockerfile"
+    container_name: nodejs-server-3
+    stdin_open: true
+    ports:
+      - 8084:8084
+  nodejsserver4:
+    build:
+      context: "./nodejs-server-4"
+      dockerfile: "Dockerfile"
+    container_name: nodejs-server-4
+    stdin_open: true
+    ports:
+      - 8085:8085
