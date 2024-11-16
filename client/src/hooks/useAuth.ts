@@ -1,17 +1,51 @@
 export default function useAuth() {
   function getUsername() {
-    const userName = localStorage.getItem("dashboardUsername");
+    const username = localStorage.getItem("dashboardUsername");
 
-    if (userName) return userName;
+    if (username) return username;
     return null;
   }
 
-  function setUsername(username: string) {
-    localStorage.setItem("dashboardUsername", username);
+  async function setUsername(username: string) {
+    try {
+      const response = await fetch("http://localhost:8080/auth/login-user", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      });
+      if (response.status === 200) {
+        localStorage.setItem("dashboardUsername", username);
+      } else {
+        console.error("something went wrong logging in");
+      }
+    } catch (error) {
+      console.error("something went wrong logging in");
+    }
   }
 
-  function removeUsername() {
-    localStorage.removeItem("dashboardUsername");
+  async function removeUsername() {
+    const username = localStorage.getItem("dashboardUsername");
+
+    try {
+      const response = await fetch("http://localhost:8080/auth/logout-user", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      });
+      if (response.status === 200) {
+        localStorage.removeItem("dashboardUsername");
+      } else {
+        console.error("something went wrong logging out");
+      }
+    } catch (error) {
+      console.error("something went wrong logging out");
+    }
   }
 
   return { getUsername, setUsername, removeUsername };

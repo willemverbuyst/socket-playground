@@ -18,8 +18,8 @@ export default function App() {
           {isLoggedIn && (
             <Button
               variant="outline"
-              onClick={() => {
-                removeUsername();
+              onClick={async () => {
+                await removeUsername();
                 setIsLoggedIn(false);
               }}
             >

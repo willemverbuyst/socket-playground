@@ -35,8 +35,8 @@ export default function LoginPage({
     },
   });
 
-  function onSubmit(values: FormSchema) {
-    setUsername(values.username);
+  async function onSubmit(values: FormSchema) {
+    await setUsername(values.username);
     setIsLoggedIn(true);
   }
 
