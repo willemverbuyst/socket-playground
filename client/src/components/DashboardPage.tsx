@@ -4,7 +4,6 @@ import NodeJSServer2 from "./NodeJSServer2.tsx";
 import NodeJSServer3 from "./NodeJSServer3.tsx";
 import NodeJSServer4 from "./NodeJSServer4.tsx";
 import PythonServer from "./PythonServer.tsx";
-import UserTable from "./UserTable.tsx";
 
 export default function DashboardPage() {
   return (
@@ -16,7 +15,6 @@ export default function DashboardPage() {
         <NodeJSServer2 />
         <DenoServer />
         <NodeJSServer4 />
-        <UserTable />
       </section>
     </div>
   );
