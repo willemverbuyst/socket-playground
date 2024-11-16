@@ -8,14 +8,16 @@ import UserTable from "./UserTable.tsx";
 
 export default function DashboardPage() {
   return (
-    <section className="grid grid-cols-3 gap-10">
-      <NodeJSServer1 />
-      <PythonServer />
-      <NodeJSServer3 />
-      <NodeJSServer2 />
-      <DenoServer />
-      <NodeJSServer4 />
-      <UserTable />
-    </section>
+    <div className="flex justify-center py-10">
+      <section className="grid grid-cols-3 gap-10">
+        <NodeJSServer1 />
+        <PythonServer />
+        <NodeJSServer3 />
+        <NodeJSServer2 />
+        <DenoServer />
+        <NodeJSServer4 />
+        <UserTable />
+      </section>
+    </div>
   );
 }
