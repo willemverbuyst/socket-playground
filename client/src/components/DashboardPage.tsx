@@ -7,7 +7,7 @@ import PythonServer from "./PythonServer.tsx";
 
 export default function DashboardPage() {
   return (
-    <section className="grid grid-cols-3 gap-10 mx-auto">
+    <section className="grid grid-cols-3 gap-10">
       <NodeJSServer1 />
       <PythonServer />
       <NodeJSServer3 />
