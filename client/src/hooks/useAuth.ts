@@ -10,5 +10,9 @@ export default function useAuth() {
     localStorage.setItem("dashboardUsername", username);
   }
 
-  return { getUsername, setUsername };
+  function removeUsername() {
+    localStorage.removeItem("dashboardUsername");
+  }
+
+  return { getUsername, setUsername, removeUsername };
 }

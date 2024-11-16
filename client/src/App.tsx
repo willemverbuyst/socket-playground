@@ -1,19 +1,31 @@
 import { useState } from "react";
 import DashboardPage from "./components/DashboardPage.tsx";
 import LoginPage from "./components/LoginPage.tsx";
+import { Button } from "./components/ui/button.tsx";
 import { Separator } from "./components/ui/separator.tsx";
 import { Toaster } from "./components/ui/toaster.tsx";
 import useAuth from "./hooks/useAuth.ts";
 
 export default function App() {
-  const { getUsername } = useAuth();
+  const { getUsername, removeUsername } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!getUsername());
 
   return (
     <div className="flex h-screen">
       <div className="flex flex-col flex-1 min-h-screen">
-        <header className="flex items-center justify-between px-6 py-4 h-[50px] container">
-          Dashboard
+        <header className="flex items-center justify-between px-6 py-4 h-[50px]">
+          <h1 className="text-4xl">Dashboard</h1>
+          {isLoggedIn && (
+            <Button
+              variant="outline"
+              onClick={() => {
+                removeUsername();
+                setIsLoggedIn(false);
+              }}
+            >
+              Log out
+            </Button>
+          )}
         </header>
         <Separator />
         <main className="overflow-auto">
