@@ -1,3 +1,4 @@
+import useAuth from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,7 +22,12 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export default function LoginPage() {
+export default function LoginPage({
+  setIsLoggedIn,
+}: {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const { setUsername } = useAuth();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,7 +36,8 @@ export default function LoginPage() {
   });
 
   function onSubmit(values: FormSchema) {
-    console.log(values);
+    setUsername(values.username);
+    setIsLoggedIn(true);
   }
 
   return (
