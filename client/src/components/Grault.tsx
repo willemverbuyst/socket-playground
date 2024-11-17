@@ -57,7 +57,7 @@ function Chart() {
     </section>
   );
 }
-export default function PythonServer() {
+export function Grault() {
   const { connect, disconnect, socketIsConnected } = useSocket({ socket });
 
   function handleSwitch() {

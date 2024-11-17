@@ -15,7 +15,7 @@ function User() {
   );
 }
 
-export default function Header() {
+export function Header() {
   const { getUsername, removeUsername } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!getUsername());
 

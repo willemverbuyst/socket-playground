@@ -41,7 +41,7 @@ function Chart() {
   );
 }
 
-export default function NodeJSServer2() {
+export function Quux() {
   const { connect, disconnect, socketIsConnected } = useSocket({ socket });
 
   function handleSwitch() {
