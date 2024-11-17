@@ -6,9 +6,30 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import useAuth from "@/hooks/useAuth";
 import { List, UserCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+
+function OnlineUsersIcon() {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <List />
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Display a list of the users that are online</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
 
 export default function OnlineUsers() {
   const { getUsername } = useAuth();
@@ -38,7 +59,7 @@ export default function OnlineUsers() {
   return (
     <Drawer direction="right">
       <DrawerTrigger>
-        <List />
+        <OnlineUsersIcon />
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
