@@ -47,10 +47,10 @@ export default function NodeJSServer1() {
   }
 
   return (
-    <Card>
+    <Card className="flex-1">
       <CardHeader>
         <CardTitle className="text-center uppercase font-thin">
-          {NODE_SERVER_1}
+          FooBar
         </CardTitle>
       </CardHeader>
       <CardContent className="flex justify-center">

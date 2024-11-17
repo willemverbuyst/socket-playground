@@ -69,10 +69,10 @@ export default function PythonServer() {
   }
 
   return (
-    <Card>
+    <Card className="flex-1">
       <CardHeader>
         <CardTitle className="text-center uppercase font-thin">
-          {PYTHON_SERVER}
+          Grault
         </CardTitle>
       </CardHeader>
       <CardContent className="flex justify-center">

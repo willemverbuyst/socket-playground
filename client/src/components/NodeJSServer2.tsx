@@ -53,11 +53,9 @@ export default function NodeJSServer2() {
   }
 
   return (
-    <Card>
+    <Card className="flex-1">
       <CardHeader>
-        <CardTitle className="text-center uppercase font-thin">
-          {NODE_SERVER_2}
-        </CardTitle>
+        <CardTitle className="text-center uppercase font-thin">Quux</CardTitle>
       </CardHeader>
       <CardContent className="flex justify-center">
         <Chart />

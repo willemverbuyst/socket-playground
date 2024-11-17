@@ -52,11 +52,9 @@ export default function NodeJSServer4() {
   }
 
   return (
-    <Card>
+    <Card className="flex-1">
       <CardHeader>
-        <CardTitle className="text-center uppercase font-thin">
-          {NODE_SERVER_4}
-        </CardTitle>
+        <CardTitle className="text-center uppercase font-thin">Corge</CardTitle>
       </CardHeader>
       <CardContent className="flex justify-center">
         <Chart />

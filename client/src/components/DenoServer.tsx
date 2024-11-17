@@ -47,11 +47,9 @@ export default function DenoServer() {
   }
 
   return (
-    <Card>
+    <Card className="flex-1">
       <CardHeader>
-        <CardTitle className="text-center uppercase font-thin">
-          {DENO_SERVER}
-        </CardTitle>
+        <CardTitle className="text-center uppercase font-thin">Waldo</CardTitle>
       </CardHeader>
       <CardContent className="flex justify-center">
         <Chart />
