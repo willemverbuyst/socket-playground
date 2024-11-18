@@ -20,8 +20,10 @@ function OnlineUsersIcon() {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
-          <List />
+        <TooltipTrigger asChild>
+          <DrawerTrigger>
+            <List />
+          </DrawerTrigger>
         </TooltipTrigger>
         <TooltipContent>
           <p>Display a list of the users that are online</p>
@@ -58,9 +60,8 @@ export default function OnlineUsers() {
 
   return (
     <Drawer direction="right">
-      <DrawerTrigger>
-        <OnlineUsersIcon />
-      </DrawerTrigger>
+      <OnlineUsersIcon />
+
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Online users</DrawerTitle>
