@@ -9,13 +9,12 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useEffect } from "react";
 import { Scatter, ScatterChart, XAxis, YAxis, ZAxis } from "recharts";
-import { PYTHON_SERVER } from "../config/severs.ts";
 import { pythonSocket as socket } from "../config/socket.ts";
 import useSocket from "../hooks/useSocket.ts";
 import useSocketData from "../hooks/useSocketData.ts";
 
 function Chart() {
-  const { data, handleData } = useSocketData({ serverName: PYTHON_SERVER });
+  const { data, handleData } = useSocketData();
 
   useEffect(() => {
     socket.on("pythonserver", handleData);

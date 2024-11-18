@@ -10,12 +10,11 @@ import { Switch } from "@/components/ui/switch";
 import useSocket from "@/hooks/useSocket.ts";
 import { useEffect } from "react";
 import { Bar, BarChart, YAxis } from "recharts";
-import { NODE_SERVER_1 } from "../config/severs.ts";
 import { nodeSocket1 as socket } from "../config/socket.ts";
 import useSocketData from "../hooks/useSocketData.ts";
 
 function Chart() {
-  const { data, handleData } = useSocketData({ serverName: NODE_SERVER_1 });
+  const { data, handleData } = useSocketData();
 
   useEffect(() => {
     socket.on("nodejsserver1", handleData);

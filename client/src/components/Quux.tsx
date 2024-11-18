@@ -9,13 +9,12 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useEffect } from "react";
 import { Area, AreaChart, YAxis } from "recharts";
-import { NODE_SERVER_2 } from "../config/severs.ts";
 import { nodeSocket2 as socket } from "../config/socket.ts";
 import useSocket from "../hooks/useSocket.ts";
 import useSocketData from "../hooks/useSocketData.ts";
 
 function Chart() {
-  const { data, handleData } = useSocketData({ serverName: NODE_SERVER_2 });
+  const { data, handleData } = useSocketData();
 
   useEffect(() => {
     socket.on("nodejsserver2", handleData);

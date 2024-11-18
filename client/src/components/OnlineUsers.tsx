@@ -13,6 +13,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useAuth from "@/hooks/useAuth";
+import { useToast } from "@/hooks/useToast";
 import { List, UserCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -34,6 +35,7 @@ function OnlineUsersIcon() {
 }
 
 export default function OnlineUsers() {
+  const { toast } = useToast();
   const { getUsername } = useAuth();
   const [users, setUsers] = useState([getUsername()]);
 
@@ -44,6 +46,11 @@ export default function OnlineUsers() {
       const onlineUsers = JSON.parse(e.data)?.onlineUsers;
       if (onlineUsers) {
         setUsers(onlineUsers);
+        toast({
+          title: "Login",
+          description: "User logged in",
+          variant: "default",
+        });
       } else {
         console.warn("Something wrong with the onlineUsers");
       }
