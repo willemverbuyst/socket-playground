@@ -16,6 +16,10 @@ services:
     stdin_open: true
     ports:
       - 8081:8081
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/fugaFooBar
+    depends_on:
+      - fugafoobardb
   pythonserver:
     build:
       context: "./python-server"
@@ -49,3 +53,15 @@ services:
     stdin_open: true
     ports:
       - 8085:8085
+  fugafoobardb:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: fugaFooBar
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
