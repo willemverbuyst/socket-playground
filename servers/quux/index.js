@@ -15,10 +15,7 @@ function generateFakeValue() {
 
 io.on("connect", (socket) => {
   console.log(`Client ${socket.id} connected`);
-  const int = setInterval(
-    () => io.emit("nodejsserver2", generateFakeValue()),
-    1000
-  );
+  const int = setInterval(() => io.emit("quux", generateFakeValue()), 1000);
 
   socket.on("pre-disconnect", (id) => {
     console.log(`Client ${id} disconnecting`);
@@ -69,5 +66,5 @@ app.delete("/data", async (_req, res) => {
 });
 
 server.listen(8081, () => {
-  console.log("nodejs server 2 running on http://localhost:8081");
+  console.log("Quux - NodeJS server - running on http://localhost:8081");
 });

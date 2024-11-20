@@ -13,10 +13,7 @@ function generateFakeValue() {
 
 io.on("connect", (socket) => {
   console.log(`Client ${socket.id} connected`);
-  const int = setInterval(
-    () => io.emit("nodejsserver3", generateFakeValue()),
-    1500
-  );
+  const int = setInterval(() => io.emit("baz", generateFakeValue()), 1500);
 
   socket.on("pre-disconnect", (id) => {
     console.log(`Client ${id} disconnecting`);
@@ -29,5 +26,5 @@ io.on("connect", (socket) => {
 });
 
 server.listen(8084, () => {
-  console.log("nodejs server 3 running on http://localhost:8084");
+  console.log("Baz - NodeJS server - running on http://localhost:8084");
 });

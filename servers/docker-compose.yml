@@ -1,18 +1,18 @@
 version: "3"
 services:
-  nodejsserver1:
+  foobar:
     build:
-      context: "./nodejs-server-1"
+      context: "./fooBar"
       dockerfile: "Dockerfile"
-    container_name: nodejs-server-1
+    container_name: foobar-nodejs-server
     stdin_open: true
     ports:
       - 8080:8080
-  nodejsserver2:
+  quux:
     build:
-      context: "./nodejs-server-2"
+      context: "./quux"
       dockerfile: "Dockerfile"
-    container_name: nodejs-server-2
+    container_name: quux-nodejs-server
     stdin_open: true
     ports:
       - 8081:8081
@@ -20,36 +20,36 @@ services:
       DATABASE_URL: postgres://postgres:password@db:5432/fugaFooBar
     depends_on:
       - fugafoobardb
-  pythonserver:
+  grault:
     build:
-      context: "./python-server"
+      context: "./grault"
       dockerfile: "Dockerfile"
-    container_name: python-server
+    container_name: grault-python-server
     stdin_open: true
     tty: true
     ports:
       - 8082:8082
-  denoserver:
+  waldo:
     build:
-      context: "./deno-server"
+      context: "./waldo"
       dockerfile: "Dockerfile"
-    container_name: deno-server
+    container_name: waldo-deno-server
     stdin_open: true
     ports:
       - 8083:8083
-  nodejsserver3:
+  baz:
     build:
-      context: "./nodejs-server-3"
+      context: "./baz"
       dockerfile: "Dockerfile"
-    container_name: nodejs-server-3
+    container_name: baz-nodejs-server
     stdin_open: true
     ports:
       - 8084:8084
-  nodejsserver4:
+  corge:
     build:
-      context: "./nodejs-server-4"
+      context: "./corge"
       dockerfile: "Dockerfile"
-    container_name: nodejs-server-4
+    container_name: corge-nodejs-server
     stdin_open: true
     ports:
       - 8085:8085

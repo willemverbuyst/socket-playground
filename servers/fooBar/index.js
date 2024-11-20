@@ -106,10 +106,7 @@ app.post("/auth/logout-user", (req, res) => {
 
 io.on("connect", (socket) => {
   console.log(`Client ${socket.id} connected`);
-  const int = setInterval(
-    () => io.emit("nodejsserver1", generateFakeValue()),
-    2000
-  );
+  const int = setInterval(() => io.emit("foobar", generateFakeValue()), 2000);
 
   socket.on("pre-disconnect", (id) => {
     console.log(`Client ${id} disconnecting`);
@@ -122,5 +119,5 @@ io.on("connect", (socket) => {
 });
 
 server.listen(8080, () => {
-  console.log("nodejs server 1 running on http://localhost:8080");
+  console.log("FooBar - NodeJS server - running on http://localhost:8080");
 });

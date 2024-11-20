@@ -19,7 +19,7 @@ def handle_connect(sid, environ):
 
 
 def emit_random_number():
-    sio.emit('pythonserver', random.randint(0, 100))
+    sio.emit('grault', random.randint(0, 100))
     
     eventlet.spawn_after(2, emit_random_number)
 
@@ -32,7 +32,7 @@ def handle_disconnect(sid):
     print(f'Client {sid} disconnected')
 
 if __name__ == '__main__':
-    print("python server running on port 8082")
+    print("Grault - Python server - running on port 8082")
     app = socketio.WSGIApp(sio)
 
     eventlet.wsgi.server(eventlet.listen(('0.0.0.0', 8082)), app)

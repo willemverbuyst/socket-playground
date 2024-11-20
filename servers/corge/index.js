@@ -13,10 +13,7 @@ function generateFakeValue() {
 
 io.on("connect", (socket) => {
   console.log(`Client ${socket.id} connected`);
-  const int = setInterval(
-    () => io.emit("nodejsserver4", generateFakeValue()),
-    2500
-  );
+  const int = setInterval(() => io.emit("corge", generateFakeValue()), 2500);
 
   socket.on("pre-disconnect", (id) => {
     console.log(`Client ${id} disconnecting`);
@@ -29,5 +26,5 @@ io.on("connect", (socket) => {
 });
 
 server.listen(8085, () => {
-  console.log("nodejs server 4 running on http://localhost:8085");
+  console.log("Corge - NodeJS server - running on http://localhost:8085");
 });
