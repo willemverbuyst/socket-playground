@@ -16,10 +16,6 @@ services:
     stdin_open: true
     ports:
       - 8081:8081
-    environment:
-      DATABASE_URL: postgres://postgres:password@db:5432/fugaFooBar
-    depends_on:
-      - fugafoobardb
   grault:
     build:
       context: "./grault"
@@ -53,13 +49,25 @@ services:
     stdin_open: true
     ports:
       - 8085:8085
-  fugafoobardb:
+  garply:
+    build:
+      context: "./garply"
+      dockerfile: "Dockerfile"
+    container_name: garply-nodejs-server
+    stdin_open: true
+    ports:
+      - 8086:8086
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/garplyDB
+    depends_on:
+      - garplydb
+  garplydb:
     image: postgres:15
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: fugaFooBar
+      POSTGRES_DB: garplyDB
     volumes:
       - pgdata:/var/lib/postgresql/data
 

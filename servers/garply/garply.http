@@ -1,0 +1,15 @@
+GET http://localhost:8081/data
+
+###
+
+POST http://localhost:8081/data
+Content-Type: application/json
+
+{ 
+  "fuga": "lalala",
+  "foo": "yolo",
+  "bar":123
+}
+
+###
+DELETE http://localhost:8081/data
