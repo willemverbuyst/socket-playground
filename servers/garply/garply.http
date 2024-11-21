@@ -1,8 +1,8 @@
-GET http://localhost:8081/data
+GET http://localhost:8086/data
 
 ###
 
-POST http://localhost:8081/data
+POST http://localhost:8086/data
 Content-Type: application/json
 
 { 
@@ -12,4 +12,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8081/data
+DELETE http://localhost:8086/data

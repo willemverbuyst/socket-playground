@@ -45,5 +45,5 @@ app.delete("/data", async (_req, res) => {
 });
 
 server.listen(8086, () => {
-  console.log("Quux - NodeJS server - running on http://localhost:8086");
+  console.log("Garply - NodeJS server - running on http://localhost:8086");
 });
