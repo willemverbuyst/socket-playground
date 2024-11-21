@@ -8,37 +8,36 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-const garply = [
-  {
-    fuga: "FHV001",
-    status: "Done",
-    number: 250,
-  },
-  {
-    fuga: "FHV002",
-    status: "Active",
-    number: 150,
-  },
-  {
-    fuga: "FHV003",
-    status: "Requested",
-    number: 350,
-  },
-  {
-    fuga: "FHV004",
-    status: "Requested",
-    number: 450,
-  },
-  {
-    fuga: "FHV005",
-    status: "Active",
-    number: 550,
-  },
-];
+type Garply = { id: string; fuga: string; status: string; number: number };
 
 export function Garply() {
+  const [garplies, setGarplies] = useState<Garply[]>([]);
+
+  useEffect(() => {
+    const sse = new EventSource("http://localhost:8086/stream");
+
+    sse.onmessage = (e) => {
+      const garplies = JSON.parse(e.data)?.data;
+
+      if (garplies) {
+        setGarplies(garplies);
+      } else {
+        console.warn("Something wrong with the garplies");
+      }
+    };
+    sse.onerror = (error) => {
+      console.error("ERROR", error);
+
+      sse.close();
+    };
+    return () => {
+      sse.close();
+    };
+  }, []);
+
   return (
     <Card className="w-[150px] flex-auto">
       <CardHeader>
@@ -57,8 +56,8 @@ export function Garply() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {garply.map((g) => (
-              <TableRow key={g.fuga}>
+            {garplies.map((g) => (
+              <TableRow key={g.id}>
                 <TableCell className="font-medium">{g.fuga}</TableCell>
                 <TableCell>{g.status}</TableCell>
                 <TableCell className="text-right">{g.number}</TableCell>
@@ -69,7 +68,7 @@ export function Garply() {
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
               <TableCell className="text-right">
-                {garply.reduce((a, b) => a + b.number, 0)}
+                {garplies.reduce((a, b) => a + b.number, 0)}
               </TableCell>
             </TableRow>
           </TableFooter>

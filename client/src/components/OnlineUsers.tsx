@@ -56,7 +56,7 @@ export default function OnlineUsers() {
       }
     };
     sse.onerror = (error) => {
-      console.log("ERROR", error);
+      console.error("ERROR", error);
 
       sse.close();
     };
