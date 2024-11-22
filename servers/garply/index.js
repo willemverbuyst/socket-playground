@@ -27,7 +27,9 @@ app.get("/stream", async (req, res) => {
   // Send an initial message
   res.write(`data: ${JSON.stringify({ message: "Connected to SSE" })}\n\n`);
 
-  const result = await db.query("SELECT * FROM data ORDER BY id ASC LIMIT 5");
+  const result = await db.query(
+    "SELECT * FROM data ORDER BY createdat ASC LIMIT 5"
+  );
 
   res.write(
     `data: ${JSON.stringify({
@@ -68,7 +70,7 @@ app.post("/data", async (req, res) => {
 
 app.get("/data", async (_req, res) => {
   try {
-    const result = await db.query("SELECT * FROM data ORDER BY id ASC");
+    const result = await db.query("SELECT * FROM data ORDER BY createdat ASC");
     res.json(result.rows); // Send all records as JSON
   } catch (err) {
     console.error("Error fetching data:", err);

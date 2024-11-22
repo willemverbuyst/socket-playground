@@ -9,51 +9,45 @@ const pool = new Pool({
 });
 
 const garplies = [
-  { fuga: "FHV001", status: "Done", number: 250 },
-  { fuga: "FHV002", status: "Active", number: 150 },
-  { fuga: "FHV003", status: "Requested", number: 350 },
-  { fuga: "FHV004", status: "Requested", number: 450 },
-  { fuga: "FHV005", status: "Active", number: 550 },
+  { fuga: "FHV001", foo: "Done", bar: 250 },
+  { fuga: "FHV002", foo: "Active", bar: 150 },
+  { fuga: "FHV003", foo: "Requested", bar: 350 },
+  { fuga: "FHV004", foo: "Requested", bar: 450 },
+  { fuga: "FHV005", foo: "Active", bar: 550 },
 ];
 
-pool.query("DROP TABLE IF EXISTS data");
-
-// Create table and seed data
 (async () => {
   try {
-    // Enable uuid-ossp extension for UUID (if using UUIDs for id)
-    await pool
-      .query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
-      .catch((err) =>
-        console.error("Error enabling uuid-ossp extension:", err)
-      );
+    // Ensure table is dropped before proceeding
+    await pool.query("DROP TABLE IF EXISTS data");
+    console.log("Table dropped successfully");
 
-    // Create table if it doesn't exist
-    await pool
-      .query(
-        `
-            CREATE TABLE IF NOT EXISTS data (
-                id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-                fuga TEXT NOT NULL,
-                status TEXT NOT NULL,
-                number INTEGER NOT NULL
-            )
-        `
+    // Enable uuid-ossp extension
+    await pool.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+    console.log("UUID extension enabled");
+
+    // Create table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS data (
+          id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+          fuga TEXT NOT NULL,
+          foo TEXT NOT NULL,
+          bar INTEGER NOT NULL,
+          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
       )
-      .catch((err) => console.error("Error creating table", err));
-
-    console.log("Table created or already exists");
+    `);
+    console.log("Table created successfully");
 
     // Check if the table is already seeded
     const { rows } = await pool.query("SELECT COUNT(*) AS count FROM data");
     if (parseInt(rows[0].count, 10) === 0) {
       // Insert seed data
       const seedQuery = `
-                INSERT INTO data (fuga, status, number)
-                VALUES ($1, $2, $3)
-            `;
+        INSERT INTO data (fuga, foo, bar)
+        VALUES ($1, $2, $3)
+      `;
       for (const item of garplies) {
-        await pool.query(seedQuery, [item.fuga, item.status, item.number]);
+        await pool.query(seedQuery, [item.fuga, item.foo, item.bar]);
       }
       console.log("Seed data inserted successfully");
     } else {
@@ -62,7 +56,7 @@ pool.query("DROP TABLE IF EXISTS data");
   } catch (err) {
     console.error("Error during database initialization:", err);
   } finally {
-    console.log("Database set up is done");
+    console.log("Database setup is done");
   }
 })();
 
