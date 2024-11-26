@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "./client"
+    schedule:
+      interval: "weekly"
+      time: "02:00"
+      day: "sunday"
+    groups:
+      dev-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*lint*"
+    open-pull-requests-limit: 0
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "02:00"
+      day: "sunday"
+    open-pull-requests-limit: 0
