@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-type Garply = { id: string; fuga: string; status: string; number: number };
+type Garply = { id: string; fuga: string; foo: string; bar: number };
 
 export function Garply() {
   const [garplies, setGarplies] = useState<Garply[]>([]);
@@ -59,8 +59,8 @@ export function Garply() {
             {garplies.map((g) => (
               <TableRow key={g.id}>
                 <TableCell className="font-medium">{g.fuga}</TableCell>
-                <TableCell>{g.status}</TableCell>
-                <TableCell className="text-right">{g.number}</TableCell>
+                <TableCell>{g.foo}</TableCell>
+                <TableCell className="text-right">{g.bar}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -68,7 +68,7 @@ export function Garply() {
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
               <TableCell className="text-right">
-                {garplies.reduce((a, b) => a + b.number, 0)}
+                {garplies.reduce((a, b) => a + b.bar, 0)}
               </TableCell>
             </TableRow>
           </TableFooter>
