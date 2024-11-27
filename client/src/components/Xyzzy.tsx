@@ -6,54 +6,98 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-const invoices = [
+type XyzzyData = {
+  fred: string;
+  plugh: string;
+  thud: string;
+  qux: string;
+};
+
+const xyzzy: XyzzyData[] = [
   {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
+    fred: "INV001",
+    plugh: "Paid",
+    thud: "$250.00",
+    qux: "Credit Card",
   },
   {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
+    fred: "INV002",
+    plugh: "Pending",
+    thud: "$150.00",
+    qux: "PayPal",
   },
   {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
+    fred: "INV003",
+    plugh: "Unpaid",
+    thud: "$350.00",
+    qux: "Bank Transfer",
   },
   {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
+    fred: "INV004",
+    plugh: "Paid",
+    thud: "$450.00",
+    qux: "Credit Card",
   },
   {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
+    fred: "INV005",
+    plugh: "Paid",
+    thud: "$550.00",
+    qux: "PayPal",
   },
   {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
+    fred: "INV006",
+    plugh: "Pending",
+    thud: "$200.00",
+    qux: "Bank Transfer",
   },
   {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
+    fred: "INV007",
+    plugh: "Unpaid",
+    thud: "$300.00",
+    qux: "Credit Card",
   },
 ];
 
 export function Xyzzy() {
+  const columnHelper = createColumnHelper<XyzzyData>();
+
+  const columns = [
+    columnHelper.accessor("fred", {
+      header: () => "Fred",
+      cell: (info) => info.getValue(),
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("plugh", {
+      cell: (info) => info.getValue(),
+      header: () => "Plugh",
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("thud", {
+      cell: (info) => info.getValue(),
+      header: () => "Fred",
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor("qux", {
+      cell: (info) => info.getValue(),
+      header: () => "Qux",
+      footer: (info) => info.column.id,
+    }),
+  ];
+
+  const table = useReactTable({
+    columns,
+    data: xyzzy,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
   return (
     <Card className="w-[400px] flex-auto self-stretch">
       <CardHeader>
@@ -62,22 +106,30 @@ export function Xyzzy() {
       <CardContent>
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">Fred</TableHead>
-              <TableHead>Plugh</TableHead>
-              <TableHead>Thud</TableHead>
-              <TableHead className="text-right">Qux</TableHead>
-            </TableRow>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
           </TableHeader>
           <TableBody>
-            {invoices.map((invoice) => (
-              <TableRow key={invoice.invoice}>
-                <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                <TableCell>{invoice.paymentStatus}</TableCell>
-                <TableCell>{invoice.paymentMethod}</TableCell>
-                <TableCell className="text-right">
-                  {invoice.totalAmount}
-                </TableCell>
+            {xyzzy.map((fred) => (
+              <TableRow key={fred.fred}>
+                <TableCell className="font-medium">{fred.fred}</TableCell>
+                <TableCell>{fred.plugh}</TableCell>
+                <TableCell>{fred.qux}</TableCell>
+                <TableCell className="text-right">{fred.thud}</TableCell>
               </TableRow>
             ))}
           </TableBody>
